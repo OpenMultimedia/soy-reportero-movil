@@ -1,0 +1,3 @@
+[submodule "lib/phonegap-2.5.0"]
+	path = lib/phonegap-2.5.0
+	url = git://github.com/phonegap/phonegap.git
