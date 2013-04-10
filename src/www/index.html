@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Soy Reportero</title>
+        
+        <script type="text/javascript" charset="utf-8" src="js/lib/cordova-2.5.0.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/lib/require.js" data-main="js/main"></script>
+        
+        
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+            
+        <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="css/my.css" />
+        
+    
+    </head>
+    <body>
+        
+        
+        <!-- Create -->
+        <div data-role="page" data-theme="a" id="page1" style="background: url('http://assets.codiqa.com/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat">
+            <div data-theme="a" data-role="header">
+                <h1>
+                    Soy Reportero
+                </h1>
+            </div>
+            <div data-role="content">
+                <a data-role="button" href="#page7">
+                    Crear reporte
+                </a>
+            </div>
+            <div data-role="tabbar" data-iconpos="top" data-theme="a">
+                <ul>
+                    <li>
+                        <a href="#page1" data-transition="fade" data-theme="" data-icon="plus">
+                            Enviar reporte
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#listPage" data-transition="none" data-theme="" data-icon="grid">
+                            Ver reportes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Upload Form -->
+        <div data-role="page" data-theme="a" id="page6" style="background: url('http://assets.codiqa.com/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat">
+            <div data-theme="a" data-role="header">
+                <h1>
+                    Soy Reportero
+                </h1>
+            </div>
+            <div data-role="content">
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textinput1">
+                            Nombre
+                        </label>
+                        <input name="" id="textinput1" placeholder="" value="" type="text">
+                            </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textinput2">
+                            Titulo
+                        </label>
+                        <input name="" id="textinput2" placeholder="" value="" type="text">
+                            </fieldset>
+                </div>
+                <div data-role="fieldcontain">
+                    <fieldset data-role="controlgroup">
+                        <label for="textarea1">
+                            Descripción
+                        </label>
+                        <textarea name="" id="textarea1" placeholder=""></textarea>
+                    </fieldset>
+                </div>
+            </div>
+            <div data-role="tabbar" data-iconpos="top" data-theme="a">
+                <ul>
+                    <li>
+                        <a href="#page1" data-transition="fade" data-theme="" data-icon="plus">
+                            Enviar reporte
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#listPage" data-transition="none" data-theme="" data-icon="grid">
+                            Ver reportes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- SelectFrom -->
+        <div data-role="page" data-theme="a" id="page7" style="background: url('http://assets.codiqa.com/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat">
+            <div data-theme="a" data-role="header">
+                <h1>
+                    Soy Reportero
+                </h1>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" data-divider-theme="a" data-inset="true">
+                    <li data-theme="c">
+                        <a href="#page6" onclick="javascript:capturePhoto();" data-transition="slide">
+                            Tomar Foto
+                        </a>
+                        
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page6" onclick="javascript:captureVideo();" data-transition="slide">
+                            Tomar Video
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page6" onclick="javascript:getPhoto(pictureSource.PHOTOLIBRARY, 0);" data-transition="slide">
+                            Seleccionar Foto existente
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page6" onclick="javascript:getPhoto(pictureSource.PHOTOLIBRARY, 1);" data-transition="slide">
+                            Seleccionar Video existente
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div data-role="tabbar" data-iconpos="top" data-theme="a">
+                <ul>
+                    <li>
+                        <a href="#page1" data-transition="fade" data-theme="" data-icon="plus">
+                            Enviar reporte
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#listPage" data-transition="none" data-theme="" data-icon="grid">
+                            Ver reportes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- List -->
+        <div data-role="page" data-theme="a" id="listPage" style="background: url('http://assets.codiqa.com/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat">
+            <div data-theme="a" data-role="header">
+                <a data-role="button" href="#listPage" class="ui-btn-right">
+                    En vivo
+                </a>
+                <h1>
+                    Soy Reportero
+                </h1>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" data-divider-theme="a" data-inset="false">
+                    <li data-role="list-divider" role="heading">
+                        Reportes
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page5" data-transition="slide">
+                            Reporte 1
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page5" data-transition="slide">
+                            Reporte 2
+                        </a>
+                    </li>
+                    <li data-theme="c">
+                        <a href="#page5" data-transition="slide">
+                            Reporte 3
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div data-role="tabbar" data-iconpos="top" data-theme="a">
+                <ul>
+                    <li>
+                        <a href="#page1" data-transition="fade" data-theme="" data-icon="plus">
+                            Enviar reporte
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#listPage" data-transition="none" data-theme="" data-icon="grid">
+                            Ver reportes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Detail -->
+        <div data-role="page" id="page5" style="background: url('http://assets.codiqa.com/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat">
+            <div data-theme="a" data-role="header">
+                <a data-role="button" data-direction="reverse" data-transition="slide"
+                    href="#listPage" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
+                    Button
+                </a>
+                <a data-role="button" href="#listPage" class="ui-btn-right">
+                    En vivo
+                </a>
+                <h1>
+                    Soy Reportero
+                </h1>
+            </div>
+            <div data-role="content">
+                <div style=" text-align:center">
+                    <a href="http://media-telesur.openmultimedia.biz/clips/telesur-video-2013-04-04-171200175042.mp4"><img style="width: 100%; height: 100%" src="http://assets.codiqa.com/taghYuvwQXPL4GRvYi8w_DSCN2014.JPG"></a>
+                        </div>
+                <div>
+                    <p>
+                    <span style="color: rgb(255, 255, 255); ">
+                        Donec sed turpis et elit consectetur lacinia convallis sed velit. Aenean
+                        odio neque, fringilla in accumsan quis, posuere sed arcu. Aliquam erat
+                        volutpat. Curabitur consectetur cursus metus, vitae placerat lectus sagittis
+                        non. Praesent vel sollicitudin mauris. Cras at aliquam turpis. Vivamus
+                        vel placerat risus.
+                    </span>
+                    </p>
+                </div>
+            </div>
+            <div data-role="tabbar" data-iconpos="top" data-theme="a">
+                <ul>
+                    <li>
+                        <a href="#page1" data-transition="fade" data-theme="" data-icon="plus">
+                            Enviar reporte
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#listPage" data-transition="none" data-theme="" data-icon="grid">
+                            Ver reportes
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        
+        
+    </body>
+</html>
