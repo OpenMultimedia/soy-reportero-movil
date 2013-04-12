@@ -1,5 +1,5 @@
 function getReports(offset, batchSize, callback) {
-	$.getJSON('http://multimedia.tlsur.net/api/imagen/?ultimo=10&tipo=soy-reportero&autenticado=w3bt3l3sUrTV',
+	$.getJSON('http://multimedia.tlsur.net/api/clip/?ultimo=10&tipo=soy-reportero&autenticado=w3bt3l3sUrTV',
     function(data) {
 		$.each(data, function(key, val) {
     		console.log(key);
@@ -14,18 +14,15 @@ console.log("no");
 $(document).ready(
 		function() {
 			console.log("your sister");
-			var report_list = {}
+			var report_list = {};
 			var selected_slug;
 			$( 'div' ).on( 'pagehide',function(event, ui) {
 				if( ui.nextPage[0].id === "listPage") {
 					console.log("esta");
 					getReports(0, 4, function(data) {
 						var i = 0;
-						console.log("hey");
-						console.log(data);
 						var html = "";
 						for(i=0; i< data.length; i++) {
-							console.log(data[i]);
 							var report = data[i];
 							report_list[report.slug] = report;
 							var title = report.titulo;
@@ -36,19 +33,24 @@ $(document).ready(
 							$("#list-reports").html(html);
 							$(".report-list-item").click(function() {
 								selected_slug = $(this).attr("data-slug");
-								console.log("hee");
-
 							});
 						}
 					});
 				}
 				else if(ui.nextPage[0].id === "showReport") {
-					console.log("pagina 5");
-					console.log(report_list);
-					console.log(selected_slug);
+					var isVideo = true;
 					var report = report_list[selected_slug];
-					$("#report-img").attr("src", report.thumbnail_grande);
 					$("#report-description").text(report.descripcion);
+					if(isVideo) {
+						console.log(report.slug);
+						$("#report-media-container").omplayer({
+							slug: report.slug,
+							width: $("#report-media-container").width(),
+							height: 255
+						});
+					} else {
+						$("#report-img").attr("src", report.thumbnail_grande);
+					}
 				}
 			});
 
