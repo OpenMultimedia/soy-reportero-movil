@@ -1,43 +1,61 @@
-// Sets the require.js configuration
-require.config( {
+function getReports(offset, batchSize, callback) {
+	$.getJSON('http://multimedia.tlsur.net/api/imagen/?ultimo=10&tipo=soy-reportero&autenticado=w3bt3l3sUrTV',
+    function(data) {
+		$.each(data, function(key, val) {
+    		console.log(key);
+  		});
+  		callback(data);
+	 });
+	//console.log(videos.fetch({ dataType: 'jsonp' }));
+}
 
-      // 3rd party script alias names
-      paths: {
-            "jquery": "lib/jquery-1.9.1.min",
-            "jquerymobile": "lib/jquery.mobile-1.3.0.min",
-            "underscore": "lib/underscore-min",
-            "backbone": "lib/backbone"
-      },
 
-      // Sets the configuration for 3d party scripts that are not AMD compatible
-      shim: {
-            "backbone": {
-                  "deps": [ "underscore", "jquery" ],
-                  "exports": "Backbone"  //attaches "Backbone" to the window object
-            }
-      } // end Shim Configuration
-
-} );
-
-// Includes File Dependencies
-require([ "jquery", "backbone", "routers/ClipRouter" ], function($, Backbone, ClipRouter) {
-
-	$(document).on("mobileinit",
-		// Set up the "mobileinit" handler before requiring jQuery Mobile's module
+console.log("no");
+$(document).ready(
 		function() {
-			// Prevents all anchor click handling including the addition of active button state and alternate link bluring.
-			$.mobile.linkBindingEnabled = false;
+			console.log("your sister");
+			var report_list = {}
+			var selected_slug;
+			$( 'div' ).on( 'pagehide',function(event, ui) {
+				if( ui.nextPage[0].id === "listPage") {
+					console.log("esta");
+					getReports(0, 4, function(data) {
+						var i = 0;
+						console.log("hey");
+						console.log(data);
+						var html = "";
+						for(i=0; i< data.length; i++) {
+							console.log(data[i]);
+							var report = data[i];
+							report_list[report.slug] = report;
+							var title = report.titulo;
+							var slug = report.slug;
+							var descripcion = report.descripcion;
+							var thumbnail = report.thumbnail_pequeno;
+							html += "<li class='report-item-li' ><a href='#showReport' class='report-list-item' data-transition='slide' data-slug='"+slug+"'><img src='" + thumbnail + "' /><span class='title'>"+ title +"</span></a></li>";
+							$("#list-reports").html(html);
+							$(".report-list-item").click(function() {
+								selected_slug = $(this).attr("data-slug");
+								console.log("hee");
 
-			// Disabling this will prevent jQuery Mobile from handling hash changes
-			$.mobile.hashListeningEnabled = false;
+							});
+						}
+					});
+				}
+				else if(ui.nextPage[0].id === "showReport") {
+					console.log("pagina 5");
+					console.log(report_list);
+					console.log(selected_slug);
+					var report = report_list[selected_slug];
+					$("#report-img").attr("src", report.thumbnail_grande);
+					$("#report-description").text(report.descripcion);
+				}
+			});
 
-                  $.mobile.ajaxEnabled = false;
-                  $.mobile.pushStateEnabled = false;
+			$(".report-list-item").on("tap", function() {
+				console.log($(this).attr("data-slug"));
+				console.log("hee");
+
+			});
 		}
-	)
-
-	require( [ "jquerymobile" ], function() {
-		// Instantiates a new Backbone.js Mobile Router
-		this.router = new ClipRouter();
-	});
-} );
+	);
