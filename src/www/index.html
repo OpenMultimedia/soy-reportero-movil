@@ -13,7 +13,9 @@
   <script type="text/javascript" charset="utf-8" src="js/lib/jquery.mobile-1.3.0.min.js"></script>
   <script type="text/javascript" src="js/lib/omplayer.telesur.js"></script>
   <script type="text/javascript" charset="utf-8" src="js/lib/user_interface.js"></script>
-  <script type="text/javascript" charset="utf-8" src="js/phone.js"></script>
+  <script type="text/javascript" charset="utf-8" src="js/lib/md5_lib.js"></script>
+  <script type="text/javascript" charset="utf-8" src="js/lib/phone.js"></script>
+  <script type="text/javascript" charset="utf-8" src="js/lib/tolito.js"></script>
   <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
   <!-- User-generated css -->
   <style>
@@ -36,11 +38,34 @@
           <h1>
               Soy Reportero
           </h1>
+          <div class="progressbar-container">
+            <div class="progresstext">Subiendo Archivo</div>
+            <div class="progressbar"></div>
+          </div>
       </div>
       <div data-role="content">
-          <a data-role="button" href="#page7">
+          <a style="display:none" id="check-report" href="#createReport"></a>
+          <a style="display:none" id="edit-report" href="#formPage"></a>
+          <a data-role="button" onclick="checkReport()">
               Crear reporte
           </a>
+
+          <!-- popup -->
+          <a href="#popupExistReport" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" id="dialogexist">aceptar</a>
+          <div data-role="popup" id="popupExistReport" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+          <div data-role="header" data-theme="a" class="ui-corner-top">
+            <h1></h1>
+          </div>
+          <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+            <h3 class="ui-title">Hay un reporte sin enviar</h3>
+            <p>¿Desea borrar y crear un reporte nuevo?.</p>
+            <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c"
+              id="acept-create-button">Eliminar</a>
+            <a href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b" id="edit-create-button">Editar</a>
+          </div>
+          </div>
+
+
       </div>
       <div data-role="tabbar" data-iconpos="top" data-theme="a">
           <ul>
@@ -58,42 +83,77 @@
       </div>
   </div>
   <!-- Upload Form -->
-  <div data-role="page" data-theme="a" id="page6" style="background: url('http://assets.codiqa.com/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat">
+  <div data-role="page" data-theme="a" id="formPage" style="background: url('http://assets.codiqa.com/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat">
       <div data-theme="a" data-role="header">
           <h1>
               Soy Reportero
           </h1>
+            <div class="progressbar-container">
+              <div class="progresstext">Subiendo Archivo</div>
+              <div class="progressbar"></div>
+            </div>
       </div>
       <div data-role="content">
           <div data-role="fieldcontain">
               <fieldset data-role="controlgroup">
-                  <label for="textinput1">
+                  <label for="name">
                       Nombre
                   </label>
-                  <input name="" id="textinput1" placeholder="" value="" type="text">
+                  <input name="name" id="name-input" placeholder="" value="" type="text">
               </fieldset>
           </div>
           <div data-role="fieldcontain">
               <fieldset data-role="controlgroup">
-                  <label for="textinput2">
+                  <label for="title">
                       Titulo
                   </label>
-                  <input name="" id="textinput2" placeholder="" value="" type="text">
+                  <input name="title" id="title-input" placeholder="" value="" type="text">
               </fieldset>
           </div>
           <div data-role="fieldcontain">
               <fieldset data-role="controlgroup">
-                  <label for="textarea1">
+                  <label for="description">
                       Descripción
                   </label>
-                  <textarea name="" id="textarea1" placeholder=""></textarea>
+                  <textarea name="description" id="description-input" placeholder=""></textarea>
               </fieldset>
+          </div>
+          <input name="file-id" id="file-id-input" placeholder="" value="" type="hidden">
+          <div id="send-button-container"></div>
+
+          <!-- popup upload file -->
+          <a href="#popupDialog" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" id="dialogstarter">aceptar</a>
+          <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+          <div data-role="header" data-theme="a" class="ui-corner-top">
+            <h1></h1>
+          </div>
+          <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+            <h3 class="ui-title">Cargar Archivo</h3>
+            <p class="conextion-type">This action cannot be undone.</p>
+            <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c"
+              id="acept-upload-button">Aceptar</a>
+            <a href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b">Cancelar</a>
+          </div>
+          </div>
+
+          <!-- popup post report success -->
+
+        <a href="#popupReportSuccess" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" id="dialogreportsucess">aceptar</a>
+          <div data-role="popup" id="popupReportSuccess" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+          <div data-role="header" data-theme="a" class="ui-corner-top">
+            <h1></h1>
+          </div>
+          <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+            <h3 class="ui-title">Reporte Enviado Correctamente</h3>
+            <a href="#page1" data-role="button" data-inline="true" data-rel="back" data-theme="c"
+              id="acept-success-button">Aceptar</a>
+          </div>
           </div>
       </div>
       <div data-role="tabbar" data-iconpos="top" data-theme="a">
           <ul>
               <li>
-                  <a href="#page1" data-transition="fade" data-theme="" data-icon="plus">
+                  <a class="send-report-tabbar" href="#page1" data-transition="fade" data-theme="" data-icon="plus">
                       Enviar reporte
                   </a>
               </li>
@@ -106,31 +166,35 @@
       </div>
   </div>
   <!-- SelectFrom -->
-  <div data-role="page" data-theme="a" id="page7" style="background: url('http://assets.codiqa.com/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat">
+  <div data-role="page" data-theme="a" id="createReport" style="background: url('http://assets.codiqa.com/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat">
       <div data-theme="a" data-role="header">
           <h1>
               Soy Reportero
           </h1>
+            <div class="progressbar-container">
+              <div class="progresstext">Subiendo Archivo</div>
+              <div class="progressbar"></div>
+            </div>
       </div>
       <div data-role="content">
           <ul data-role="listview" data-divider-theme="a" data-inset="true">
               <li data-theme="c">
-                  <a href="#page1" data-transition="slide">
-                      Tomar Foto
+                  <a onclick="capturePhoto()" href="#formPage" data-transition="slide">
+                      Tomar Fotox
                   </a>
               </li>
               <li data-theme="c">
-                  <a href="#page1" data-transition="slide">
+                  <a onclick="captureVideo()" href="#formPage" data-transition="slide">
                       Tomar Video
                   </a>
               </li>
               <li data-theme="c">
-                  <a href="#page1" data-transition="slide">
+                  <a href="#formPage" onclick="getPhoto(pictureSource.PHOTOLIBRARY, 0);" data-transition="slide">
                       Seleccionar Foto de Galería
                   </a>
               </li>
               <li data-theme="c">
-                  <a href="#page1" data-transition="slide">
+                  <a href="#formPage" onclick="getPhoto(pictureSource.PHOTOLIBRARY, 1);" data-transition="slide">
                       Seleccionar Video de Galería
                   </a>
               </li>
@@ -154,33 +218,16 @@
   <!-- List -->
   <div data-role="page" data-theme="a" id="listPage" style="background: url('http://assets.codiqa.com/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat">
       <div data-theme="a" data-role="header">
-          <a data-role="button" href="#listPage" class="ui-btn-right">
-              En vivo
-          </a>
           <h1>
               Soy Reportero
           </h1>
+            <div class="progressbar-container">
+              <div class="progresstext">Subiendo Archivo</div>
+              <div class="progressbar"></div>
+            </div>
       </div>
       <div data-role="content">
           <ul data-role="listview" data-divider-theme="a" data-inset="false" id="list-reports">
-              <li data-role="list-divider" role="heading">
-                  Reportes
-              </li>
-              <li data-theme="c">
-                  <a href="#showReport" data-transition="slide">
-                      Reporte 1
-                  </a>
-              </li>
-              <li data-theme="c">
-                  <a href="#showReport" data-transition="slide">
-                      Reporte 2
-                  </a>
-              </li>
-              <li data-theme="c">
-                  <a href="#showReport" data-transition="slide">
-                      Reporte 3
-                  </a>
-              </li>
           </ul>
       </div>
       <div data-role="tabbar" data-iconpos="top" data-theme="a">
@@ -203,7 +250,7 @@
       <div data-theme="a" data-role="header">
           <a data-role="button" data-direction="reverse" data-transition="slide"
           href="#listPage" data-icon="arrow-l" data-iconpos="left" class="ui-btn-left">
-              Button
+              Volver
           </a>
           <a data-role="button" href="#listPage" class="ui-btn-right">
               En vivo
