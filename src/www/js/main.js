@@ -57,23 +57,23 @@ function post_report() {
     if(file_id) {
         data['archivo'] = name;
     }
+
+    var url_post = 'http://multimedia.tlsur.net/api/imagen/';
+    if (mediaType == "video") {
+        url_post = 'http://multimedia.tlsur.net/api/clip/';
+    }
     security_key = 'k4}"-^30C$:3l04$(/<5"7*6|Ie"6x';
     key = 'telesursoyreporteroplonepruebas';
     var signature = sing_request(data, key, security_key);
     data['signature'] = signature;
-    console.log(data);
     $.ajax({
         type: 'POST',
         contentType: 'application/x-www-form-urlencoded',
-        //accepts: 'application/json; charset=UTF-8',
 
-        url: 'http://multimedia.tlsur.net/api/imagen/',
+        url: url_post,
         dataType: "json",
         data: data,
         success: function(dato, textStatus, jqXHR){
-            console.log(dato);
-            console.log(textStatus);
-            console.log(jqXHR);
             var response = JSON.parse(jqXHR['responseText']);
             var slug = response['slug'];
             cleanForm();
@@ -92,8 +92,6 @@ function post_report() {
 }
 
 function checkReport() {
-    console.log("mongoo");
-    console.log(initial);
     if($("#send-button").length) {
         $("#acept-create-button").click(function() {
            cleanForm();

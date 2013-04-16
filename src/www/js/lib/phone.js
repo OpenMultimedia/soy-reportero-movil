@@ -1,6 +1,7 @@
   var pictureSource;   // picture source
   var destinationType; // sets the format of returned value
-
+  var destinationType;
+  var mediaType = "image";
   // Wait for Cordova to connect with the device
   //
   document.addEventListener("deviceready",onDeviceReady,false);
@@ -59,15 +60,20 @@
     states[Connection.CELL_4G]  = 'Cell 4G connection';
     states[Connection.NONE]     = 'No network connection';
     //resolve file check size and upload
+    if (imageURI.indexOf("file://") !== 0) {
+      imageURI = "file://" + imageURI;
+    }
     window.resolveLocalFileSystemURI(imageURI, function(fileEntry) {
         fileEntry.file(function(fileObj) {
             var networkState = navigator.network.connection.type;
-            console.log("muaajajajajaj");
             $(".conextion-type").text("Esta usando: " + states[networkState] + " y el archivo que desea cargar pesa: " + fileObj.size + "bytes, ¿desea continuar?");
             $("#acept-upload-button").click( function() {
                 uploadFile(imageURI);
             });
             $("#dialogstarter").trigger("click");
+        }, function(e) {
+          console.log(e);
+
         });
     });
 
@@ -76,13 +82,13 @@
   // Called when a photo is successfully retrieved
   //
 function onPhotoURISuccess(imageURI) {
-    console.log("ando");
     checkConnectionAndSizeAndUpload(imageURI);
 }
 
   // A button will call this function
   //
   function capturePhoto() {
+    mediaType = "image";
     // Take picture using device camera and retrieve image as base64-encoded string
     navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
       destinationType: navigator.camera.DestinationType.FILE_URI});
@@ -106,6 +112,7 @@ var captureError = function(error) {
 
 
    function captureVideo() {
+    mediaType = "video";
     // Take picture using device camera and retrieve image as base64-encoded string
     navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:1});
   }
@@ -114,6 +121,10 @@ var captureError = function(error) {
   // A button will call this function
   //
   function getPhoto(source, type) {
+    mediaType = "image";
+    if(type == 1) {
+      mediaType = "video";
+    }
     // Retrieve image file location from specified source
     navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
       destinationType: destinationType.FILE_URI,
