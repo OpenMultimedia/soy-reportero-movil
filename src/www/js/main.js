@@ -141,11 +141,12 @@ $(document).ready(
                     $("#report-description").text(report.descripcion);
                     if(isVideo) {
                         console.log(report.slug);
-                        $("#report-media-container").omplayer({
-                            slug: report.slug,
-                            width: $("#report-media-container").width(),
-                            height: 255
-                        });
+                        // $("#report-media-container").omplayer({
+                        //     slug: report.slug,
+                        //     width: $("#report-media-container").width(),
+                        //     height: 255
+                        // });
+                        $("#report-media-container").html('<a href="' + report.archivo_url + '"><img width="100%" src="'+ report.thumbnail_grande +'" /></a>');
                     } else {
                         $("#report-img").attr("src", report.thumbnail_grande);
                     }
