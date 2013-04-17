@@ -6,12 +6,12 @@ $ git clone ...
 
 
 2. Copiar src/www al directorio correspondiente al dispositivo
-[iOS]
+(iOS)
 $ cp -r src/www ios/
-[Android]
+(Android)
 $ cp -r src/www android/assets/
-[Blackberry]
-----
-[Windows Phone 7]
-----
+(Blackberry)
+- - - - 
+(Windows Phone 7)
+- - - -
 
