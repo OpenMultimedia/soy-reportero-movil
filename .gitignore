@@ -1,1 +1,4 @@
 .DS_Store
+
+src/ios/www
+src/android/www
