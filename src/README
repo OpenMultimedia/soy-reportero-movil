@@ -1,3 +1,0 @@
-1.  Copiar todo el directorio www en el directorio del dispositivo (android, ios, ...)
-
-2.  Modificar index.html  y des/comentar la/s líneas necesarias para el <script> que incluye la versión adecuada del js de cordova
