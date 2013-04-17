@@ -9,9 +9,9 @@ Clonar repositorio
 Copiar src/www al directorio correspondiente al dispositivo
 
     [iphone]
-    $ cp -r src/www ios/
+    $ cp -r src/www src/ios/
     (Android)
-    $ cp -r src/www android/assets/
+    $ cp -r src/www src/android/assets/
     (Blackberry)
     ----
     (Windows Phone 7)
