@@ -55,7 +55,7 @@ function post_report() {
     }
     var file_id = $("#file-id-input").val();
     if(file_id) {
-        data['archivo'] = name;
+        data['archivo'] = file_id;
     }
 
     var url_post = 'http://multimedia.tlsur.net/api/imagen/';
