@@ -109,7 +109,7 @@ $(document).ready(
             }
 
             function onApiMoreLoaded(data) {
-                console.log(data)
+                console.log('Data loaded');
                 var i = 0;
                 var html = "";
 
@@ -132,7 +132,7 @@ $(document).ready(
             }
 
             $(document).on('pageinit', function(e, pageOptions) {
-                console.log("PageInit", e.target.id, arguments);
+                console.log("PageInit", e.target.id);
                 if (e.target.id == "listPage") {
                     api = new ApiStream({pageSize: 5});
 
@@ -152,10 +152,6 @@ $(document).ready(
                 if (pageOptions.toPage[0].id == "listPage") {
                     //api.more();
                 }
-            });
-
-            $(document).on("pageremove", function(e, pageOptions) {
-                console.log("Remove", arguments);
             });
 
             var report_list = {};
