@@ -73,6 +73,8 @@
 
 - (void)viewDidLoad
 {
+    self.startPage = @"index-ios.html";
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
