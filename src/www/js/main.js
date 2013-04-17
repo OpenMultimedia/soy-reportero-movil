@@ -1,13 +1,5 @@
 var initial = window.location.href;
 
-function getReports(offset, batchSize, callback) {
-    $.getJSON('http://multimedia.tlsur.net/api/clip/?ultimo=10&tipo=soy-reportero&autenticado=w3bt3l3sUrTV',
-    function(data) {
-        callback(data);
-     });
-    //console.log(videos.fetch({ dataType: 'jsonp' }));
-}
-
 function sorted_keys(obj) {
     var keys = [];
     for(var key in obj)
@@ -107,35 +99,69 @@ function checkReport() {
         //$("#check-report").trigger("click");
     }
 }
-
+var api;
 $(document).ready(
         function() {
             console.log("your sister");
 
+            function onApiReset() {
+                $("#list-reports").clear();
+            }
+
+            function onApiMoreLoaded(data) {
+                console.log(data)
+                var i = 0;
+                var html = "";
+
+                for(i=0; i< data.length; i++) {
+                    var report = data[i];
+                    report_list[report.slug] = report;
+                    var title = report.titulo;
+                    var slug = report.slug;
+                    var descripcion = report.descripcion;
+                    var thumbnail = report.thumbnail_pequeno;
+
+                    html = $("<li class='report-item-li' ><a href='#showReport' class='report-list-item' data-transition='slide' data-slug='"+slug+"'><img src='" + thumbnail + "' /><span class='title'>"+ title +"</span></a></li>");
+
+                    $("#list-reports").append(html);
+                    $(".report-list-item").click(function() {
+                        selected_slug = $(this).attr("data-slug");
+                    });
+                }
+
+            }
+
+            $(document).on('pageinit', function(e, pageOptions) {
+                console.log("PageInit", e.target.id, arguments);
+                if (e.target.id == "listPage") {
+                    api = new ApiStream({pageSize: 5});
+
+                    api.on("reset", onApiReset);
+                    api.on("more", onApiMoreLoaded);
+                    api.more();
+                }
+            })
+
+            $(document).on('pagechange', function(e, pageOptions) {
+                console.log("Changing page to: ", pageOptions.toPage[0].id);
+
+                if (pageOptions.options.fromPage && pageOptions.options.fromPage[0].id == "listPage") {
+                    //wht to do when one leaves the page
+                }
+
+                if (pageOptions.toPage[0].id == "listPage") {
+                    //api.more();
+                }
+            });
+
+            $(document).on("pageremove", function(e, pageOptions) {
+                console.log("Remove", arguments);
+            });
+
             var report_list = {};
             var selected_slug;
             $( 'div' ).on( 'pagehide',function(event, ui) {
-                if( ui.nextPage[0].id === "listPage") {
-                    console.log("esta");
-                    getReports(0, 4, function(data) {
-                        var i = 0;
-                        var html = "";
-                        for(i=0; i< data.length; i++) {
-                            var report = data[i];
-                            report_list[report.slug] = report;
-                            var title = report.titulo;
-                            var slug = report.slug;
-                            var descripcion = report.descripcion;
-                            var thumbnail = report.thumbnail_pequeno;
-                            html += "<li class='report-item-li' ><a href='#showReport' class='report-list-item' data-transition='slide' data-slug='"+slug+"'><img src='" + thumbnail + "' /><span class='title'>"+ title +"</span></a></li>";
-                            $("#list-reports").html(html);
-                            $(".report-list-item").click(function() {
-                                selected_slug = $(this).attr("data-slug");
-                            });
-                        }
-                    });
-                }
-                else if(ui.nextPage[0].id === "showReport") {
+                if(ui.nextPage[0].id === "showReport") {
                     var isVideo = true;
                     var report = report_list[selected_slug];
                     $("#report-description").text(report.descripcion);
@@ -165,7 +191,6 @@ $(document).ready(
             $(".report-list-item").on("tap", function() {
                 console.log($(this).attr("data-slug"));
                 console.log("hee");
-
             });
         }
     );
