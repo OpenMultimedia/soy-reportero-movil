@@ -506,9 +506,12 @@
 border: 0;
 text-decoration: none;
 border-bottom: 0;
-margin: 20px;
-position: relative;
-top: -28px;
+margin: 10px 16px 10px 16px;
+/*position: relative;*/
+top: 0px;
+display:  inline-block;
+vertical-align: top;
+line-height: 1.5em;
 }
 
 .progressbar-container {
