@@ -1,5 +1,3 @@
-var initial = window.location.href;
-
 function sorted_keys(obj) {
   var keys = [];
   for(var key in obj)
@@ -70,7 +68,7 @@ function post_report() {
       var slug = response['slug'];
       cleanForm();
       $("#acept-success-button").click(function() {
-        window.location.href = initial + "#page1";
+        $.mobile.changePage("#page1");
       });
       $("#dialogreportsucess").trigger("click");
       $("#send-button").remove();
@@ -90,12 +88,12 @@ function checkReport() {
       //$("#check-report").trigger("click");
     });
     $("#edit-create-button").click(function() {
-      window.location.href = initial + "#formPage";
+      $.mobile.changePage("#formPage");
       //$("#edit-report").trigger("click");
     });
     $("#dialogexist").trigger("click");
   } else {
-    window.location.href = initial + "#createReport";
+      $.mobile.changePage("#createReport");
     //$("#check-report").trigger("click");
   }
 }
@@ -178,6 +176,10 @@ $(document).ready(
             case "listPage":
               break;
             case "showReport":
+              if (!selected_slug) {
+                $.mobile.changePage('#listPage');
+                return;
+              }
               var report = api.fromCache(selected_slug);
               var isVideo = (report['tipo'] == TipoReporte.Video);
 
