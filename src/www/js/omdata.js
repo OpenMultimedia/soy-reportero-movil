@@ -16,13 +16,25 @@ function ApiStream(opt_options) {
 
 _.extend(ApiStream.prototype, Backbone.Events);
 
+ApiStream.prototype.parseDate_ = function(dateString) {
+  var parts = dateString.split(' ', 2);
+  var dateParts = parts[0].split('-', 3);
+  var timeParts = parts[1].split(':', 3);
+
+  var date = new Date(dateParts[0], dateParts[1], dateParts[2], timeParts[0], timeParts[1], timeParts[2]);
+
+  console.log(dateParts, timeParts, date);
+
+  return date;
+};
+
 ApiStream.prototype.createObjectFromClip_ = function(clip) {
   return {
     'slug': clip['slug'],
     'titulo': clip['titulo'],
     'descripcion': clip['descripcion'],
     'usuario': clip['usuario_creacion'], //TODO:
-    'fecha': new Date(clip['fecha']),
+    'fecha': this.parseDate_(clip['fecha']),
 
     'tipo': TipoReporte.Video,
 
@@ -41,7 +53,7 @@ ApiStream.prototype.createObjectFromPic_ = function(image) {
     'titulo': image['titulo'],
     'descripcion': image['descripcion'],
     'usuario': image['usuario'], //TODO:
-    'fecha': new Date(image['fecha']),
+    'fecha': this.parseDate_(image['fecha']),
 
     'tipo': TipoReporte.Imagen,
 
