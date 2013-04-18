@@ -11,7 +11,7 @@
 
   <link rel="stylesheet" href="my.css" />
   <link rel="stylesheet" href="jqm_themes/android/android-theme.css" />
-  
+
   <script type="text/javascript" charset="utf-8" src="cordova-2.6.0-android.js"></script>
 
   <script type="text/javascript" charset="utf-8" src="js/lib/underscore.js"></script>
@@ -52,11 +52,13 @@
           </div>
       </div>
       <div data-role="content">
+        <div class="content">
           <a style="display:none" id="check-report" href="#createReport"></a>
           <a style="display:none" id="edit-report" href="#formPage"></a>
           <a data-role="button" onclick="checkReport()">
               Crear reporte
           </a>
+        </div>
 
           <!-- popup -->
           <a href="#popupExistReport" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" id="dialogexist">aceptar</a>
@@ -102,6 +104,7 @@
             </div>
       </div>
       <div data-role="content">
+        <div class="content">
           <div data-role="fieldcontain">
               <fieldset data-role="controlgroup">
                   <label for="name">
@@ -128,7 +131,7 @@
           </div>
           <input name="file-id" id="file-id-input" placeholder="" value="" type="hidden">
           <div id="send-button-container"></div>
-
+        </div>
           <!-- popup upload file -->
           <a href="#popupDialog" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" id="dialogstarter">aceptar</a>
           <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
@@ -185,6 +188,7 @@
             </div>
       </div>
       <div data-role="content">
+        <div class="content">
           <ul data-role="listview" data-divider-theme="a" data-inset="true">
               <li data-theme="c">
                   <a onclick="capturePhoto()" href="#formPage" data-transition="slide">
@@ -207,6 +211,7 @@
                   </a>
               </li>
           </ul>
+        </div>
       </div>
       <div data-role="tabbar" data-iconpos="top" data-theme="a">
           <ul>
@@ -235,8 +240,10 @@
             </div>
       </div>
       <div data-role="content">
+        <div class="content">
           <ul data-role="listview" data-divider-theme="a" data-inset="false" id="list-reports">
           </ul>
+        </div>
       </div>
       <div data-role="tabbar" data-iconpos="top" data-theme="a">
           <ul>
@@ -268,6 +275,7 @@
           </h1>
       </div>
       <div data-role="content">
+        <div class="content">
           <div style="text-align:center" id="report-media-container">
               <img id="report-img" style="width: 100%" >
           </div>
@@ -277,6 +285,7 @@
                   </span>
               </p>
           </div>
+        </div>
       </div>
       <div data-role="tabbar" data-iconpos="top" data-theme="a">
           <ul>

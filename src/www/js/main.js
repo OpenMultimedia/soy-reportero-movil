@@ -1,5 +1,4 @@
 var initial = window.location.href;
-
 function sorted_keys(obj) {
     var keys = [];
     for(var key in obj)
@@ -102,8 +101,7 @@ function checkReport() {
 var api;
 $(document).ready(
         function() {
-            console.log("your sister");
-
+            $(".content").height($(window).height() - $(".ui-footer").height() - $(".ui-header").height());
             function onApiReset() {
                 $("#list-reports").clear();
             }
@@ -112,7 +110,7 @@ $(document).ready(
                 console.log('Data loaded');
                 var i = 0;
                 var html = "";
-
+                $("#more").remove();
                 for(i=0; i< data.length; i++) {
                     var report = data[i];
                     report_list[report.slug] = report;
@@ -128,11 +126,16 @@ $(document).ready(
                         selected_slug = $(this).attr("data-slug");
                     });
                 }
+                $("#list-reports").append("<li class='report-item-li' id='more'>Ver Más</li> ");
+                $("#more").click(function() {
+                        api.more();
+                    });
 
             }
 
             $(document).on('pageinit', function(e, pageOptions) {
                 console.log("PageInit", e.target.id);
+                $("#"+e.target.id+".content").height($(window).height() - $("#"+e.target.id+".ui-footer").height() - $("#"+e.target.id+".ui-header").height());
                 if (e.target.id == "listPage") {
                     api = new ApiStream({pageSize: 5});
 
@@ -144,7 +147,7 @@ $(document).ready(
 
             $(document).on('pagechange', function(e, pageOptions) {
                 console.log("Changing page to: ", pageOptions.toPage[0].id);
-
+                $("#"+pageOptions.toPage[0].id+".content").height($(window).height() - $("#"+pageOptions.toPage[0].id+".ui-footer").height() - $("#"+pageOptions.toPage[0].id+".ui-header").height());
                 if (pageOptions.options.fromPage && pageOptions.options.fromPage[0].id == "listPage") {
                     //wht to do when one leaves the page
                 }
@@ -176,17 +179,11 @@ $(document).ready(
             });
 
             $("#file-id-input").on("change", function() {
-                console.log("cambio");
                 $("#send-button-container").html('<a data-role="button" id="send-button" data-icon="check">Enviar Reporte</a>');
                 $("#send-button-container").trigger("create");
                 $("#send-button").on("click", function() {
                     post_report();
                 });
-            });
-
-            $(".report-list-item").on("tap", function() {
-                console.log($(this).attr("data-slug"));
-                console.log("hee");
             });
         }
     );

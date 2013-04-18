@@ -497,7 +497,6 @@
   width: 100%;
   border-bottom: 0;
   text-decoration: none;
-  padding: 10px;
   position: relative;
 }
 
@@ -554,4 +553,13 @@ top: -28px;
 #dialogexist,
 #dialogstarter {
   display: none;
+}
+
+.content {
+  overflow: auto;
+}
+
+#more {
+  text-align: center;
+  padding: 20px;
 }
