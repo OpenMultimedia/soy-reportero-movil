@@ -23,7 +23,7 @@
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="cloud" />
-    <preference name="DisallowOverscroll" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
     <preference name="EnableLocation" value="false" /><!-- DEPRECATED -->
     <preference name="EnableViewportScale" value="false" />
     <preference name="FadeSplashScreen" value="true" />
@@ -36,16 +36,16 @@
     <preference name="SuppressesIncrementalRendering" value="false" />
     <preference name="TopActivityIndicator" value="gray" />
 
-    <content src="index.html" />
+    <content src="index-ios.html" />
 
     <plugins>
         <plugin name="Device" value="CDVDevice" />
         <plugin name="Logger" value="CDVLogger" />
-        <plugin name="Compass" value="CDVLocation" />
-        <plugin name="Accelerometer" value="CDVAccelerometer" />
+        <!-- <plugin name="Compass" value="CDVLocation" /> -->
+        <!-- <plugin name="Accelerometer" value="CDVAccelerometer" /> -->
         <plugin name="Camera" value="CDVCamera" />
         <plugin name="NetworkStatus" value="CDVConnection" />
-        <plugin name="Contacts" value="CDVContacts" />
+        <!-- <plugin name="Contacts" value="CDVContacts" /> -->
         <plugin name="Debug Console" value="CDVDebugConsole" />
         <plugin name="Echo" value="CDVEcho" />
         <plugin name="File" value="CDVFile" />
@@ -55,9 +55,9 @@
         <plugin name="Media" value="CDVSound" />
         <plugin name="Capture" value="CDVCapture" />
         <plugin name="SplashScreen" value="CDVSplashScreen" />
-        <plugin name="Battery" value="CDVBattery" />
-        <plugin name="Globalization" value="CDVGlobalization" />
-        <plugin name="InAppBrowser" value="CDVInAppBrowser" />
+        <!-- <plugin name="Battery" value="CDVBattery" /> -->
+        <!-- <plugin name="Globalization" value="CDVGlobalization" /> -->
+        <!-- <plugin name="InAppBrowser" value="CDVInAppBrowser" /> -->
     </plugins>
 
     <access origin="*" />

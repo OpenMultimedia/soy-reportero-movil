@@ -107,11 +107,6 @@
 {
     // Black base color for background matches the native apps
     theWebView.backgroundColor = [UIColor blackColor];
-    
-    // Desactivar bouncing en subviews del webview
-    for (id subview in theWebView.subviews)
-        if ([[subview class] isSubclassOfClass: [UIScrollView class]])
-            ((UIScrollView *)subview).bounces = NO;
 
     return [super webViewDidFinishLoad:theWebView];
 }
