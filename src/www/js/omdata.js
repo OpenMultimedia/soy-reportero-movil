@@ -21,9 +21,7 @@ ApiStream.prototype.parseDate_ = function(dateString) {
   var dateParts = parts[0].split('-', 3);
   var timeParts = parts[1].split(':', 3);
 
-  var date = new Date(dateParts[0], dateParts[1], dateParts[2], timeParts[0], timeParts[1], timeParts[2]);
-
-  console.log(dateParts, timeParts, date);
+  var date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1], timeParts[2]);
 
   return date;
 };

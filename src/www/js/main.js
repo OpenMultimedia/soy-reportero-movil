@@ -132,7 +132,7 @@ $(document).ready(
           var slug = report.slug;
           var descripcion = report.descripcion;
           var thumbnail = report.thumbnail_pequeno;
-          var fecha = '' + report.fecha.getDate() + '/' + report.fecha.getMonth() +  '/' + report.fecha.getFullYear();
+          var fecha = '' + report.fecha.getDate() + '/' + (report.fecha.getMonth() + 1) +  '/' + report.fecha.getFullYear();
 
           html = $("<li class='report-item-li' ><a href='#showReport?slug=" + slug + "' class='report-list-item' data-transition='slide' data-slug='"+slug+"'>" +
             "<img src='" + thumbnail + "' /><span class='title'>"+ fecha + " (" + report.tipo + ")<br />" + title +"</span>" +
