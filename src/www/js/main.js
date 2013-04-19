@@ -81,6 +81,10 @@ function post_report() {
   });
 }
 
+function reloadList() {
+  api.reset();
+}
+
 function checkReport() {
   if($("#send-button").length) {
     $("#acept-create-button").click(function() {
@@ -113,7 +117,8 @@ $(document).ready(
 
 
       function onApiReset() {
-        $("#list-reports").clear();
+        $("#list-reports").empty();
+        api.more();
       }
 
       function onApiMoreLoaded(data) {
