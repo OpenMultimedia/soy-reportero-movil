@@ -37,7 +37,11 @@ function post_report() {
   var data = {'tipo': 'soy-reportero'};
   var name = $("#name-input").val();
   if(name) {
-    data['titulo'] = name;
+    data['name'] = name;
+  }
+  var title = $("#title-input").val();
+  if(title) {
+    data['titulo'] = title;
   }
   var description = $("#description-input").val();
   if(description) {
