@@ -194,15 +194,17 @@ $(document).ready(
               if(isVideo) {
                 console.log(report.slug);
 
-                // $("#report-media-container").omplayer({
-                //   slug: report.slug,
-                //   width: $("#report-media-container").width(),
-                //   height: 255
-                // });
-
-                $("#report-media-container").html(
-                  '<a href="' + report.archivo + '"><img width="100%" src="'+ report.thumbnail_grande +'" /></a>'
-                );
+                if (device == 'android') {
+                  $("#report-media-container").omplayer({
+                    slug: report.slug,
+                    width: $("#report-media-container").width(),
+                    height: 255
+                  });
+                } else {
+                  $("#report-media-container").html(
+                    '<a href="' + report.archivo + '"><img width="100%" src="'+ report.thumbnail_grande +'" /></a>'
+                  );
+                }
 
               } else {
                 $("#report-img").show().attr("src", report.thumbnail_grande);

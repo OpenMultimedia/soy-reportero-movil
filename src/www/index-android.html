@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="my.css" />
   <link rel="stylesheet" href="jqm_themes/android/android-theme.css" />
 
+  <script src="http://weinre.kgdesignes.com/target/target-script-min.js#soyreportero@android"></script>
+  <!-- Debug at http://weinre.kgdesignes.com/client/#soyreportero@android -->
+
   <script type="text/javascript" charset="utf-8" src="cordova-2.6.0-android.js"></script>
 
   <script type="text/javascript" charset="utf-8" src="js/lib/underscore.js"></script>
@@ -25,6 +28,7 @@
   <!--<script type="text/javascript" charset="utf-8" src="js/lib/tolito.js"></script>-->
   <script type="text/javascript" charset="utf-8" src="js/omdata.js"></script>
   <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+
   <!-- User-generated css -->
   <style>
 
@@ -36,6 +40,8 @@
     $(function() {
 
     });
+
+    var device = 'android';
 
   </script>
 </head>
@@ -231,6 +237,9 @@
   <!-- List -->
   <div data-role="page" data-theme="a" id="listPage" style="background: url('http://assets.codiqa.com/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat">
       <div data-theme="a" data-role="header">
+          <a data-role="button" onclick="reloadList();" class="ui-btn-right">
+              Recargar
+          </a>
           <h1>
               Soy Reportero
           </h1>
