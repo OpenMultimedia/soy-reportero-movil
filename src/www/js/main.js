@@ -113,7 +113,7 @@ var selected_slug;
 
 $(document).ready(
     function() {
-      $(".content").height($(window).height() - $(".ui-footer").height() - $(".ui-header").height());
+      //$(".content").height($(window).height() - $(".ui-footer").height() - $(".ui-header").height());
 
       function onListItemClick() {
         selected_slug = $(this).attr("data-slug");
@@ -141,33 +141,50 @@ $(document).ready(
           var thumbnail = report.thumbnail_pequeno;
           var fecha = '' + report.fecha.getDate() + '/' + (report.fecha.getMonth() + 1) +  '/' + report.fecha.getFullYear();
 
-          html = $("<li class='report-item-li' ><a href='#showReport?slug=" + slug + "' class='report-list-item' data-transition='slide' data-slug='"+slug+"'>" +
-            "<img src='" + thumbnail + "' /><span class='title'>"+ fecha + " (" + report.tipo + ")<br />" + title +"</span>" +
-            "</a></li>");
+          html = "<li style='height:60px;' class='report-item-li'><a href='#showReport?slug=" + slug + "' class='report-list-item' data-transition='slide' data-slug='"+slug+"'>" +
+            "<img style='max-height: 60px;max-width:60px;' src='" + thumbnail + "' /><span class='title'>"+ fecha + " (" + report.tipo + ")<br />" + title +"</span>" +
+            "</a></li>";
 
           $("#list-reports").append(html);
           $(".report-list-item").click(onListItemClick);
         }
 
         $("#list-reports").append("<li class='report-item-li' id='more'>Ver Más</li> ");
+
         $("#more").click(function() {
           api.more();
         });
-      }
 
-      $(document).
-        on('pageinit', function(e, pageOptions) {
+        $("#list-reports").listview("refresh");
+      }
+ 
+
+      $(document).bind('mobileinit', function() {
+          console.log('mobileinit');
+          var createView = new CreateReporteView({el: $(body), page_id: 'createReport'});
+        })
+
+      $(document).bind("mobileinit", function(){
+        console.log('aaaa');
+      });
+
+      $(document)
+      .on('pageinit', function(e, pageOptions) {
 
           console.log("PageInit", e.target.id);
 
-          $("#"+e.target.id+".content").height($(window).height() - $("#"+e.target.id+".ui-footer").height() - $("#"+e.target.id+".ui-header").height());
+          //$(".ui-content").css('margin-bottom', $('#footer').height());
+          //$("#"+e.target.id+".content").height($(window).height() - $("#"+e.target.id+".ui-footer").height() - $("#"+e.target.id+".ui-header").height());
 
+          alert('a');
           switch (e.target.id) {
+
             case "listPage":
               api = new ApiStream({pageSize: 10});
 
               api.on("reset", onApiReset);
               api.on("more", onApiMoreLoaded);
+
               api.more();
 
               break;
@@ -175,13 +192,16 @@ $(document).ready(
         }).
         on('pagechange', function(e, pageOptions) {
 
-          $("#"+pageOptions.toPage[0].id+".content").height($(window).height() - $("#"+pageOptions.toPage[0].id+".ui-footer").height() - $("#"+pageOptions.toPage[0].id+".ui-header").height());
+          //$("#"+pageOptions.toPage[0].id+".content").height($(window).height() - $("#"+pageOptions.toPage[0].id+".ui-footer").height() - $("#"+pageOptions.toPage[0].id+".ui-header").height());
 
           if (pageOptions.options.fromPage && pageOptions.options.fromPage[0].id == "listPage") {
             //wht to do when one leaves the page
           }
 
           switch (pageOptions.toPage[0].id) {
+            case "createPage":
+                alert('a');
+                break;
             case "listPage":
               break;
             case "showReport":

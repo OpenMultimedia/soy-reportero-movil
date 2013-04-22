@@ -1,0 +1,64 @@
+<div data-role="content">
+
+        <div class="progressbar-container">
+          <div class="progresstext">Subiendo Archivo</div>
+          <div class="progressbar"></div>
+        </div>
+
+        <div class="content">
+          <div data-role="fieldcontain">
+              <fieldset data-role="controlgroup">
+                  <label for="name">
+                      Nombre
+                  </label>
+                  <input name="name" id="name-input" placeholder="" value="" type="text">
+              </fieldset>
+          </div>
+          <div data-role="fieldcontain">
+              <fieldset data-role="controlgroup">
+                  <label for="title">
+                      Titulo
+                  </label>
+                  <input name="title" id="title-input" placeholder="" value="" type="text">
+              </fieldset>
+          </div>
+          <div data-role="fieldcontain">
+              <fieldset data-role="controlgroup">
+                  <label for="description">
+                      Descripción
+                  </label>
+                  <textarea name="description" id="description-input" placeholder=""></textarea>
+              </fieldset>
+          </div>
+          <input name="file-id" id="file-id-input" placeholder="" value="" type="hidden">
+          <div id="send-button-container"></div>
+        </div>
+          <!-- popup upload file -->
+          <a href="#popupDialog" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" id="dialogstarter">aceptar</a>
+          <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+          <div data-role="header" class="ui-corner-top">
+            <h1></h1>
+          </div>
+          <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+            <h3 class="ui-title">Cargar Archivo</h3>
+            <p class="conextion-type">This action cannot be undone.</p>
+            <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c"
+              id="acept-upload-button">Aceptar</a>
+            <a href="#" data-role="button" data-inline="true" data-rel="back" data-transition="flow" data-theme="b">Cancelar</a>
+          </div>
+          </div>
+
+          <!-- popup post report success -->
+
+        <a href="#popupReportSuccess" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-transition="pop" id="dialogreportsucess">aceptar</a>
+          <div data-role="popup" id="popupReportSuccess" data-overlay-theme="a" data-theme="c" style="max-width:400px;" class="ui-corner-all">
+          <div data-role="header" data-theme="a" class="ui-corner-top">
+            <h1></h1>
+          </div>
+          <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+            <h3 class="ui-title">Reporte Enviado Correctamente</h3>
+            <a href="#createPage" data-role="button" data-inline="true" data-rel="back" data-theme="c"
+              id="acept-success-button">Aceptar</a>
+          </div>
+          </div>
+      </div>
