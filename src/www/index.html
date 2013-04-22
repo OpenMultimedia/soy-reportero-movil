@@ -1,6 +1,15 @@
 <html>
 <head>
+  <script>
+         if (window.location.href.indexOf('index-ios.html') > -1)        DEVICE = 'ios';
+    else if (window.location.href.indexOf('index-android.html') > -1)    DEVICE = 'android';
+    else if (window.location.href.indexOf('index-blackberry.html') > -1) DEVICE = 'blackberry';
+    else if (window.location.href.indexOf('index-windows.html') > -1)    DEVICE = 'windows';
+    else DEVICE = 'ios';
+  </script>
+
   <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -8,9 +17,9 @@
   <link rel="stylesheet" href="jqm_themes/ios_inspired/styles.css" />
   <link rel="stylesheet" href="test.css" />
   <link rel="stylesheet" href="jquery.mobile.actionsheet.css" />
-  <title>soy reportero</title>
+  <title>Soy Reportero</title>
 
-   <script type="text/javascript" charset="utf-8" src="cordova-2.6.0-ios.js"></script>
+  <script type="text/javascript" charset="utf-8" src="cordova-2.6.0-ios.js"></script>
   <script type="text/javascript" charset="utf-8" src="js/lib/underscore.js"></script>
   <script type="text/javascript" charset="utf-8" src="js/lib/backbone.js"></script>
   <script type="text/javascript" charset="utf-8" src="js/lib/jquery-1.9.1.min.js"></script>
@@ -21,10 +30,11 @@
   <script type="text/javascript" charset="utf-8" src="js/lib/phone.js"></script>
   <script type="text/javascript" charset="utf-8" src="js/omdata.js"></script>
   <script type="text/javascript" charset="utf-8" src="js/lib/user_interface.js"></script>
-   <script type="text/javascript" charset="utf-8" src="test.js"></script>
+  <script type="text/javascript" charset="utf-8" src="test.js"></script>
 
 </head>
 <body>
+
   <!-- Create -->
   <div data-role="page" id="createReport">
     <div data-role="content" data-teme="a">
