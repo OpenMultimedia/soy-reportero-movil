@@ -189,3 +189,41 @@ ApiStream.prototype.onMoreLoaded_ = function() {
   this.trigger('more', merged);
 };
 
+ApiStream.prototype.uploadFile = function(imageURI) {
+  var that = this;
+  console.log("vamo muchacho");
+  var options = new FileUploadOptions();
+  options.fileKey="file";
+  options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+  options.chunkedMode = false;
+  options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+  var params = {};
+  options.params = params;
+  var ft = new FileTransfer();
+
+  if (imageURI.indexOf("file://") !== 0) {
+      imageURI = "file://" + imageURI;
+    }
+
+  ft.onprogress = function (progressEvent) {
+       if (progressEvent.lengthComputable) {
+           percentLoaded = Math.round(100 * (progressEvent.loaded / progressEvent.total));
+           console.log(percentLoaded);
+           this.trigger("uploadPercent", percentLoaded);
+           if(percentLoaded >= 99) {
+              this.trigger("lastPercent", percentLoaded);
+           }
+       }
+   };
+
+  ft.upload(imageURI,
+    encodeURI("http://upload.openmultimedia.biz/files/"),
+    function(r) {
+      that.trigger("uploadSuccess");
+          alert(r);
+          var response = JSON.parse(r.response);
+          that.trigger("uploadSuccess", response['id']);
+    }, function(error) {
+      that.trigger("uploadFail");
+    }, options, true);
+};

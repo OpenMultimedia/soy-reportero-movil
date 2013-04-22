@@ -1,275 +1,200 @@
-(function($) {
-  $.widget('mobile.tabbar', $.mobile.navbar, {
-    _create: function() {
-      // Set the theme before we call the prototype, which will
-      // ensure buttonMarkup() correctly grabs the inheritied theme.
-      // We default to the "a" swatch if none is found
-      var theme = this.element.jqmData('theme') || "a";
-      this.element.addClass('ui-footer ui-footer-fixed ui-bar-' + theme);
-
-      // Make sure the page has padding added to it to account for the fixed bar
-      this.element.closest('[data-role="page"]').addClass('ui-page-footer-fixed');
-
-
-      // Call the NavBar _create prototype
-      $.mobile.navbar.prototype._create.call(this);
-    },
-
-    // Set the active URL for the Tab Bar, and highlight that button on the bar
-    setActive: function(url) {
-      // Sometimes the active state isn't properly cleared, so we reset it ourselves
-      this.element.find('a').removeClass('ui-btn-active ui-state-persist');
-      this.element.find('a[href="' + url + '"]').addClass('ui-btn-active ui-state-persist');
-    }
-  });
-
-  $(document).bind('pagecreate create', function(e) {
-    return $(e.target).find(":jqmData(role='tabbar')").tabbar();
-  });
-
-  $(":jqmData(role='page')").on('pageshow', function(e) {
-    // Grab the id of the page that's showing, and select it on the Tab Bar on the page
-    var tabBar, id = $(e.target).attr('id');
-
-    tabBar = $.mobile.activePage.find(':jqmData(role="tabbar")');
-    if(tabBar.length) {
-      tabBar.tabbar('setActive', '#' + id);
-    }
-  });
-
-var attachEvents = function() {
-	var hoverDelay = $.mobile.buttonMarkup.hoverDelay, hov, foc;
-
-	$( document ).bind( {
-		"vmousedown vmousecancel vmouseup vmouseover vmouseout focus blur scrollstart": function( event ) {
-			var theme,
-				$btn = $( closestEnabledButton( event.target ) ),
-				evt = event.type;
-
-			if ( $btn.length ) {
-				theme = $btn.attr( "data-" + $.mobile.ns + "theme" );
-
-				if ( evt === "vmousedown" ) {
-					if ( $.support.touch ) {
-						hov = setTimeout(function() {
-							$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-down-" + theme );
-						}, hoverDelay );
-					} else {
-						$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-down-" + theme );
-					}
-				} else if ( evt === "vmousecancel" || evt === "vmouseup" ) {
-					$btn.removeClass( "ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
-				} else if ( evt === "vmouseover" || evt === "focus" ) {
-					if ( $.support.touch ) {
-						foc = setTimeout(function() {
-							$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-hover-" + theme );
-						}, hoverDelay );
-					} else {
-						$btn.removeClass( "ui-btn-up-" + theme ).addClass( "ui-btn-hover-" + theme );
-					}
-				} else if ( evt === "vmouseout" || evt === "blur" || evt === "scrollstart" ) {
-					$btn.removeClass( "ui-btn-hover-" + theme  + " ui-btn-down-" + theme ).addClass( "ui-btn-up-" + theme );
-					if ( hov ) {
-						clearTimeout( hov );
-					}
-					if ( foc ) {
-						clearTimeout( foc );
-					}
-				}
-			}
-		},
-		"focusin focus": function( event ){
-			$( closestEnabledButton( event.target ) ).addClass( $.mobile.focusClass );
-		},
-		"focusout blur": function( event ){
-			$( closestEnabledButton( event.target ) ).removeClass( $.mobile.focusClass );
-		}
-	});
-
-	attachEvents = null;
-};
-
-$.fn.buttonMarkup = function( options ) {
-	var $workingSet = this;
-
-	// Enforce options to be of type string
-	options = ( options && ( $.type( options ) == "object" ) )? options : {};
-	for ( var i = 0; i < $workingSet.length; i++ ) {
-		var el = $workingSet.eq( i ),
-			e = el[ 0 ],
-			o = $.extend( {}, $.fn.buttonMarkup.defaults, {
-				icon:       options.icon       !== undefined ? options.icon       : el.jqmData( "icon" ),
-				iconpos:    options.iconpos    !== undefined ? options.iconpos    : el.jqmData( "iconpos" ),
-				theme:      options.theme      !== undefined ? options.theme      : el.jqmData( "theme" ) || $.mobile.getInheritedTheme( el, "c" ),
-				inline:     options.inline     !== undefined ? options.inline     : el.jqmData( "inline" ),
-				shadow:     options.shadow     !== undefined ? options.shadow     : el.jqmData( "shadow" ),
-				corners:    options.corners    !== undefined ? options.corners    : el.jqmData( "corners" ),
-				iconshadow: options.iconshadow !== undefined ? options.iconshadow : el.jqmData( "iconshadow" ),
-				iconsize:   options.iconsize   !== undefined ? options.iconsize   : el.jqmData( "iconsize" ),
-				mini:       options.mini       !== undefined ? options.mini       : el.jqmData( "mini" )
-			}, options ),
-
-			// Classes Defined
-			innerClass = "ui-btn-inner",
-			textClass = "ui-btn-text",
-			buttonClass, iconClass,
-			// Button inner markup
-			buttonInner,
-			buttonText,
-			buttonIcon,
-			buttonElements;
-
-		$.each(o, function(key, value) {
-			e.setAttribute( "data-" + $.mobile.ns + key, value );
-			el.jqmData(key, value);
-		});
-
-		// Check if this element is already enhanced
-		buttonElements = $.data(((e.tagName === "INPUT" || e.tagName === "BUTTON") ? e.parentNode : e), "buttonElements");
-
-		if (buttonElements) {
-			e = buttonElements.outer;
-			el = $(e);
-			buttonInner = buttonElements.inner;
-			buttonText = buttonElements.text;
-			// We will recreate this icon below
-			$(buttonElements.icon).remove();
-			buttonElements.icon = null;
-		}
-		else {
-			buttonInner = document.createElement( o.wrapperEls );
-			buttonText = document.createElement( o.wrapperEls );
-		}
-		buttonIcon = o.icon ? document.createElement( "span" ) : null;
-
-		if ( attachEvents && !buttonElements) {
-			attachEvents();
-		}
-
-		// if not, try to find closest theme container
-		if ( !o.theme ) {
-			o.theme = $.mobile.getInheritedTheme( el, "c" );
-		}
-
-		buttonClass = "ui-btn ui-btn-up-" + o.theme;
-		buttonClass += o.inline ? " ui-btn-inline" : "";
-		buttonClass += o.shadow ? " ui-shadow" : "";
-		buttonClass += o.corners ? " ui-btn-corner-all" : "";
-
-		if ( o.mini !== undefined ) {
-			// Used to control styling in headers/footers, where buttons default to `mini` style.
-			buttonClass += o.mini ? " ui-mini" : " ui-fullsize";
-		}
-
-		if ( o.inline !== undefined ) {
-			// Used to control styling in headers/footers, where buttons default to `mini` style.
-			buttonClass += o.inline === false ? " ui-btn-block" : " ui-btn-inline";
-		}
-
-
-		if ( o.icon ) {
-			o.icon = "ui-icon-" + o.icon;
-			o.iconpos = o.iconpos || "left";
-
-			iconClass = "ui-icon " + o.icon;
-
-			if ( o.iconshadow ) {
-				iconClass += " ui-icon-shadow";
-			}
-
-			if ( o.iconsize ) {
-				iconClass += " ui-iconsize-" + o.iconsize;
-			}
-		}
-
-		if ( o.iconpos ) {
-			buttonClass += " ui-btn-icon-" + o.iconpos;
-
-			if ( o.iconpos == "notext" && !el.attr( "title" ) ) {
-				el.attr( "title", el.getEncodedText() );
-			}
-		}
-
-		innerClass += o.corners ? " ui-btn-corner-all" : "";
-
-		if ( o.iconpos && o.iconpos === "notext" && !el.attr( "title" ) ) {
-			el.attr( "title", el.getEncodedText() );
-		}
-
-		if ( buttonElements ) {
-			el.removeClass( buttonElements.bcls || "" );
-		}
-		el.removeClass( "ui-link" ).addClass( buttonClass );
-
-		buttonInner.className = innerClass;
-
-		buttonText.className = textClass;
-		if ( !buttonElements ) {
-			buttonInner.appendChild( buttonText );
-		}
-		if ( buttonIcon ) {
-			buttonIcon.className = iconClass;
-			if ( !(buttonElements && buttonElements.icon) ) {
-				buttonIcon.appendChild( document.createTextNode("\u00a0") );
-				buttonInner.appendChild( buttonIcon );
-			}
-		}
-
-		while ( e.firstChild && !buttonElements) {
-			buttonText.appendChild( e.firstChild );
-		}
-
-		if ( !buttonElements ) {
-			e.appendChild( buttonInner );
-		}
-
-		// Assign a structure containing the elements of this button to the elements of this button. This
-		// will allow us to recognize this as an already-enhanced button in future calls to buttonMarkup().
-		buttonElements = {
-			bcls  : buttonClass,
-			outer : e,
-			inner : buttonInner,
-			text  : buttonText,
-			icon  : buttonIcon
-		};
-
-		$.data(e,           'buttonElements', buttonElements);
-		$.data(buttonInner, 'buttonElements', buttonElements);
-		$.data(buttonText,  'buttonElements', buttonElements);
-		if (buttonIcon) {
-			$.data(buttonIcon, 'buttonElements', buttonElements);
-		}
-	}
-
-	return this;
-};
-
-$.fn.buttonMarkup.defaults = {
-	corners: true,
-	shadow: true,
-	iconshadow: true,
-	iconsize: 18,
-	wrapperEls: "span"
-};
-
-function closestEnabledButton( element ) {
-    var cname;
-
-    while ( element ) {
-		// Note that we check for typeof className below because the element we
-		// handed could be in an SVG DOM where className on SVG elements is defined to
-		// be of a different type (SVGAnimatedString). We only operate on HTML DOM
-		// elements, so we look for plain "string".
-        cname = ( typeof element.className === 'string' ) && (element.className + ' ');
-        if ( cname && cname.indexOf("ui-btn ") > -1 && cname.indexOf("ui-disabled ") < 0 ) {
-            break;
-        }
-
-        element = element.parentNode;
-    }
-
-    return element;
+function UserInterface(opt_options) {
+  this.listCointainer = "#list-reports";
+  this.moreButton = "#more";
+  this.api = new ApiStream({pageSize: 10});
+  this.phone = new PhoneAccess();
+  this.reports = {};
+  this.selected_slug = "";
 }
 
+_.extend(UserInterface.prototype, Backbone.Events);
 
-})(jQuery);
+UserInterface.prototype.init = function() {
+  this.setHeaderAndFooter();
+};
+
+UserInterface.prototype.setListPage = function() {
+  var that = this;
+  this.api.on("more", function(reports) {
+    that.createReportList(reports);
+  });
+
+  this.api.on("reset", function(reports) {
+    $(that.listCointainer).empty();
+    that.api.more();
+  });
+
+  this.api.more();
+};
+
+UserInterface.prototype.setCreatePage = function() {
+  $( ":jqmData(role='actionsheet')").actionsheet();
+  $("#create-report").click(function(e) {
+    e.preventDefault();
+    $("#create-report-sheet-button").trigger("click");
+    return false;
+  });
+};
+
+UserInterface.prototype.capturePhoto = function() {
+  var that = this;
+  //click caputre photo
+  $("#capture-photo").click(function(e) {
+    e.preventDefault();
+    that.phone.capturePhoto();
+    return false;
+  });
+  $("#capture-video").click(function(e) {
+    e.preventDefault();
+    that.phone.captureVideo();
+    return false;
+  });
+  $("#select-photo").click(function(e) {
+    e.preventDefault();
+    alert("muaaa");
+    that.phone.selectPhoto();
+    return false;
+  });
+  $("#select-video").click(function(e) {
+    e.preventDefault();
+    that.phone.selectVideo();
+    return false;
+  });
+  //capture success
+  this.phone.on("captureSuccess", function(imageURI) {
+    that.phone.fileSize(imageURI);
+    //modal clicks
+    $("#select-upload").unbind("click");
+    $("#select-upload").click(function(e) {
+      $("#cancel-upload").trigger("click");
+      $.mobile.changePage('#formPage');
+      that.api.uploadFile(imageURI);
+    });
+  });
+
+  this.phone.on("fileSizeSuccess", function(size) {
+    var conexion = that.phone.getConection();
+    var text = "tiene una " + conexion + ". ¿Desea subir el archivo de " + size + "Mb?";
+    $("#check-upload-size").text(text);
+    $("#check-upload-sheet-button").trigger("click");
+  });
+
+  this.api.on("uploadPercent", function(percent) {
+    console.log("percent");
+  });
+
+  this.api.on("uploadFail", function() {
+    alert("Hubo un error al cargar el archivo, intent luego");
+    $.mobile.changePage('#createReport');
+  });
+};
+
+UserInterface.prototype._createListItem_ = function(report) {
+  var html = "";
+  var title = report.titulo;
+  var slug = report.slug;
+  var descripcion = report.descripcion;
+  var thumbnail = report.thumbnail_pequeno;
+  var fecha = '' + report.fecha.getDate() + '/' + (report.fecha.getMonth() + 1) +  '/' + report.fecha.getFullYear();
+  html = "<tr class='report-item' data-slug='"+slug+"'>" +
+    "<td class='image-cell'><img src='" + thumbnail + "' /></td>"+
+    "<td class='data-cell'><span class='title'>"+ fecha + " (" + report.tipo + ") <br />" + title +"</span></td>" +
+    "</tr>";
+  return html;
+};
+
+UserInterface.prototype.createReportList = function(reports) {
+  var i = 0;
+  var itemHtml = "";
+  $(this.moreButton).remove();
+
+  for(i=0; i<reports.length; i++) {
+    var report = reports[i];
+    itemHtml = this._createListItem_(report);
+    $(this.listCointainer).append($(itemHtml));
+    this.reports[report.slug] = report;
+  }
+
+  $(this.listCointainer).append($("<tr id='more'>" +
+      "<td colspan='2'>Ver Más</td></tr>"));
+  var that = this;
+
+  $(".report-item").click(function(e) {
+    var slug = $(this).attr("data-slug");
+    that.selected_slug = slug;
+    $.mobile.changePage('#showReport');
+  });
+
+  $(this.moreButton).click(function(e) {
+    e.preventDefault();
+    that.api.more();
+    return false;
+  });
+
+};
+
+UserInterface.prototype.showReport = function() {
+  var report;
+  if(!this.selected_slug) {
+    $.mobile.changePage('#listPage');
+  }
+  report = this.reports[this.selected_slug];
+  var isVideo = (report['tipo'] == TipoReporte.Video);
+  $("#report-title").text(report.titulo);
+  $("#report-description").text(report.descripcion);
+  if(isVideo) {
+    $("#report-media-container").omplayer({
+      slug: report.slug,
+      width: $("#report-media-container").width(),
+      height: 255
+    });
+  } else {
+    $("#report-img").show().attr("src", report.thumbnail_grande);
+  }
+};
+
+UserInterface.prototype.setHeaderAndFooter = function() {
+
+  var HEADER = "<div data-theme='b' data-role='header'>"+
+               "<h1>Soy Reportero</h1>"+
+               "<div class='progressbar-container'>" +
+              "<div class='progresstext'>Subiendo Archivo</div>" +
+              "<div class='progressbar'></div>" +
+              "</div>" +
+               "</div>";
+  var FOOTER = "<div data-role='footer' id='navbar-check' data-iconpos='top' data-theme='a'>" +
+               "<ul><li><a href='#createReport' data-transition='fade' data-theme='' data-icon='plus'>" +
+               "<span class='ui-btn-inner'><span class='ui-btn.text'>Enviar reporte</span>" +
+              "<span class='ui-icon ui-icon-plus ui-icon-shadow ui-iconsize-18'>&nbsp;</span>"+
+              "</span></a></li>" +
+              "<li><a href='#listPage' data-transition='none' data-theme='' data-icon='grid'>" +
+              "<span class='ui-btn-inner'><span class='ui-btn.text'>Enviar reporte</span>" +
+              "<span class='ui-icon ui-icon-grid ui-icon-shadow ui-iconsize-18'>&nbsp;</span>" +
+              "</span></a></li></ul><div style='clear: left'></div></div>";
+
+
+  $("div[data-role='page']").each(function() {
+    var id = $(this).attr("id");
+    $(this).prepend(HEADER);
+    $(this).append(FOOTER);
+    $(this).find('div[data-role="header"], div[data-role="footer"]').each(
+    function() {
+        var dR = $(this).attr('data-role');
+        var dT = $(this).attr('data-theme');
+        $(this).addClass('ui-' + dR + ' ui-bar-' + dT).attr('role', (dR == 'header' ? 'banner' : 'contentinfo') ).children('h1, h2, h3, h4').each(
+            function( ){
+                $(this).addClass('ui-title').attr({'role':'heading', 'aria-level':'1'});
+            }
+        );
+    });
+
+    $(this).trigger('create');
+    $("#"+id+" .ui-content").height($(window).height() - $("#"+id+" .ui-footer").height() - $("#"+id+" .ui-header").height()-30);
+  });
+
+};
+
+UserInterface.prototype.setContetSize = function(id) {
+  $("#"+id+" .ui-content").height($(window).height() - $("#"+id+" .ui-footer").height() - $("#"+id+" .ui-header").height()-30);
+};
+
