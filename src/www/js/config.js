@@ -12,7 +12,8 @@ require.config({
       "actionsheet": 'lib/jquery.mobile.actionsheet',
       "phone": "phone",
       "omdata": "omdata",
-      "user_interface": "user_interface"
+      "user_interface": "user_interface",
+      "text": "lib/text"
 
   },
 
@@ -50,18 +51,13 @@ var ui;
 var report_list = {};
 var selected_slug;
 
-
-
-  
-
-
 // function(JQM, UserInterface) {
 
  
      $(document).on('pageinit', function(e, pageOptions) {
+       target_id = e.target.id;  
 
-       target_id = e.target.id;
-          
+        alert('page_init');
      });
 
 
@@ -83,7 +79,9 @@ require(["jquerymobile", 'user_interface'], function(JQM, UserInterface) {
 
        $(document).on('pagechange', function(e, pageOptions) {
         ui.setContetSize(pageOptions.toPage[0].id);
-        switch (pageOptions.toPage[0].id) {
+        var toPage_id = (pageOptions.toPage[0].id);
+
+        switch (toPage_id) {
             case "listPage":
               break;
             case "showReport":
@@ -92,27 +90,16 @@ require(["jquerymobile", 'user_interface'], function(JQM, UserInterface) {
       });
 
 
-       if(ui){
-          ui.init();
+       if (typeof ui == 'undefined') {
+          ui = new UserInterface();
           //ui.setContetSize(e.target.id);
           ui.setContetSize(target_id);
         } else {
-          ui.init();
           ui.setContetSize(target_id);
         }
-        switch (target_id) {
-            case "listPage":
-              ui.setListPage();
-              break;
-          case "showReport":
-              ui.showReport();
-              break;
-          case "createReport":
-              ui.setCreatePage();
-              ui.capturePhoto();
-              break;
-          }
-
+        ui.init();
+        
+        
 });
 
 

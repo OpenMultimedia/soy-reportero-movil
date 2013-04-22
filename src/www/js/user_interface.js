@@ -1,4 +1,4 @@
-define([ "jquery", "underscore", "backbone", "omdata", "phone", "actionsheet" ], function( $, _, Backbone, ApiStream, PhoneAccess ) {
+define([ "jquery", "underscore", "backbone", "omdata", "phone", "text!../templates/page.html", "actionsheet", ], function( $, _, Backbone, ApiStream, PhoneAccess, pageTemplate ) {
 
 
   function UserInterface(opt_options) {
@@ -11,6 +11,23 @@ define([ "jquery", "underscore", "backbone", "omdata", "phone", "actionsheet" ],
   }
 
   _.extend(UserInterface.prototype, Backbone.Events);
+
+  // UserInterface.prototype.pageSetup = function(id) {
+
+  //   switch (target_id) {
+  //     case "listPage":
+  //         this.setListPage();
+  //         break;
+  //     case "showReport":
+  //         this.showReport();
+  //         break;
+  //     case "createReport":
+  //         this.setCreatePage();
+  //         this.capturePhoto();
+  //         break;
+  //     }
+
+  // },
 
   UserInterface.prototype.init = function() {
     this.setHeaderAndFooter();
