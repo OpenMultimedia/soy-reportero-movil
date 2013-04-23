@@ -1,3 +1,5 @@
+define([ "jquery", "underscore", "backbone", ], function( $, _, Backbone ) {
+
 function sorted_keys(obj) {
   var keys = [];
   for(var key in obj)
@@ -250,4 +252,6 @@ $(document).ready(
         console.log("hee");
       });
     }
+
+  }});
   );

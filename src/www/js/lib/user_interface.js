@@ -1,3 +1,6 @@
+
+define([ "jquery", "backbone", 'views/CreateReportView' ], function( $, Backbone, CreateReportView ) {
+
 (function($) {
   $.widget('mobile.tabbar', $.mobile.navbar, {
     _create: function() {
@@ -272,4 +275,6 @@ function closestEnabledButton( element ) {
 }
 
 
-})(jQuery);
+})($);
+
+});

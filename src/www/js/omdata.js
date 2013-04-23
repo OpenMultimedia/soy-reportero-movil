@@ -1,3 +1,5 @@
+define([ "jquery", "backbone", 'underscore' ], function( $, Backbone, _ ) {
+
 TipoReporte = {
   Video: 'Video',
   Imagen: 'Foto'
@@ -189,3 +191,5 @@ ApiStream.prototype.onMoreLoaded_ = function() {
   this.trigger('more', merged);
 };
 
+ return ApiStream;
+};

@@ -2,14 +2,12 @@
 <html>
 <head>
   <script>
-     var l = window.location.href;
-     if (l.indexOf('-ios') > -1)
-        DEVICE = 'ios';
-     else if (l.indexOf('-android') > -1)
-        DEVICE = 'android';
-     else
-        DEVICE = 'ios';
-  </script>
+             if (window.location.href.indexOf('index-ios.html') > -1)        DEVICE = 'ios';
+        else if (window.location.href.indexOf('index-android.html') > -1)    DEVICE = 'android';
+        else if (window.location.href.indexOf('index-blackberry.html') > -1) DEVICE = 'blackberry';
+        else if (window.location.href.indexOf('index-windows.html') > -1)    DEVICE = 'windows';
+        else DEVICE = 'ios';
+    </script>
 
   <title>Soy Reportero</title>
 
@@ -24,22 +22,26 @@
   <link rel="stylesheet" href="css/jquery.mobile-1.3.1.min.css" />
   <link rel="stylesheet" href="themes/ios_inspired/styles.css" />
 
-  <script type="text/javascript" charset="utf-8" data-main="js/config" src="js/lib/require.js"></script>
+  
 
-<!--   // <script type="text/javascript" src="js/lib/omplayer.telesur.js"></script>
-  // <  script type="text/javascript" charset="utf-8" src="js/lib/user_interface.js"></script>
-  // <script type="text/javascript" charset="utf-8" src="js/lib/md5_lib.js"></script>
-  // <script type="text/javascript" charset="utf-8" src="js/lib/phone.js"></script>
-  // <script type="text/javascript" charset="utf-8" src="js/omdata.js"></script>
+    <script type="text/javascript" src="js/lib/omplayer.telesur.js"></script>
+   <script type="text/javascript" charset="utf-8" src="js/lib/user_interface.js"></script>
+   <script type="text/javascript" charset="utf-8" src="js/lib/md5_lib.js"></script>
+   <script type="text/javascript" charset="utf-8" src="js/lib/phone.js"></script>
+   <script type="text/javascript" charset="utf-8" src="js/omdata.js"></script>
 
-  // <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
+   <script type="text/javascript" charset="utf-8" src="js/main.js"></script>
 
+   <script type="text/javascript" charset="utf-8" data-main="js/config" src="js/lib/require.js"></script>
+<!-- 
 
   // <script type="text/javascript" charset="utf-8" src="js/views/PageView.js"></script>
   // <script type="text/javascript" charset="utf-8" src="js/views/CreateReportView.js"></script> -->
 
 </head>
 <body>
+
+  <div data-role="page" id="createPage"></div>
 
 
 
