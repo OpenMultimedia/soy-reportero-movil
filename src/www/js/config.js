@@ -53,11 +53,9 @@ var selected_slug;
 
 // function(JQM, UserInterface) {
 
- 
-     $(document).on('pageinit', function(e, pageOptions) {
-       target_id = e.target.id;  
 
-        alert('page_init');
+     $(document).on('pageinit', function(e, pageOptions) {
+       target_id = e.target.id;
      });
 
 
@@ -83,23 +81,34 @@ require(["jquerymobile", 'user_interface'], function(JQM, UserInterface) {
 
         switch (toPage_id) {
             case "listPage":
+              ui.setListPage();
               break;
             case "showReport":
               ui.showReport();
+              break;
+            case "createReport":
+              ui.setCreatePage();
+              ui.capturePhoto();
           }
       });
 
 
        if (typeof ui == 'undefined') {
           ui = new UserInterface();
-          //ui.setContetSize(e.target.id);
-          ui.setContetSize(target_id);
-        } else {
-          ui.setContetSize(target_id);
         }
+        ui.setContetSize(target_id);
         ui.init();
-        
-        
+        switch (target_id) {
+            case "listPage":
+              ui.setListPage();
+              break;
+            case "showReport":
+              ui.showReport();
+              break;
+            case "createReport":
+              ui.setCreatePage();
+              ui.capturePhoto();
+          }
 });
 
 
