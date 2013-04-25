@@ -13,8 +13,9 @@
     %link{:rel => "stylesheet", :href => "css/jquery.mobile.iscrollview.css"}
     %link{:rel => "stylesheet", :href => "css/jquery.mobile.iscrollview-pull.css"}
     %link{:rel => "stylesheet", :href => "css/main.css"}
-    %script{:src => "http://weinre.kgdesignes.com/target/target-script-min.js#soyreportero@#{platform.to_s}"}
-    / Debug at http://weinre.kgdesignes.com/client/#soyreportero@android
+    - if debug
+      %script{:src => "http://weinre.kgdesignes.com/target/target-script-min.js#soyreportero@#{platform.to_s}"}
+      / Debug at http://weinre.kgdesignes.com/client/#soyreportero@android
     - case platform
       - when :android
         %script{:type => "text/javascript", :charset => "utf-8", :src => "cordova-2.6.0-android.js"}

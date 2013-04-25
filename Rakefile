@@ -44,6 +44,7 @@ INDEXES.each_pair do |platform, index_file|
     haml :source => INDEX_SOURCE,
       :target => index_file,
       :locals => {
+        :debug => !!ENV['DEBUG'],
         :platform => platform,
         :pages => PAGES
       }
