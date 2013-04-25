@@ -23,7 +23,11 @@ include OMBuilder::BuilderBase
 include OMBuilder::HamlBuilder
 
 INDEX_SOURCE = 'src/templates/index.haml'
-ANDROID_INDEX = 'src/www/index-android.html'
+
+INDEXES = {
+  :android => 'src/www/index-android.html',
+  :ios => 'src/www/index-ios.html'
+}
 
 PAGES = {
   :main => {},
@@ -33,20 +37,24 @@ PAGES = {
   :view => {}
 }
 
-file ANDROID_INDEX => FileList['./src/templates/_*.haml']
+INDEXES.each_pair do |platform, index_file|
+  file index_file => FileList['./src/templates/_*.haml']
 
-file ANDROID_INDEX => INDEX_SOURCE do |f|
-  haml :source => INDEX_SOURCE,
-    :target => ANDROID_INDEX,
-    :locals => {
-      :platform => :android,
-      :pages => PAGES
-    }
+  file index_file => INDEX_SOURCE do |f|
+    haml :source => INDEX_SOURCE,
+      :target => index_file,
+      :locals => {
+        :platform => platform,
+        :pages => PAGES
+      }
+  end
+
+  CLEAN.include index_file
+
+  task (platform.to_s + '_www') => index_file
+
+  task :default => index_file
 end
-
-CLEAN.include ANDROID_INDEX
-
-task :android_www => ANDROID_INDEX
 
 task :android, [:operation, :install, :run] => :android_www do |t, args|
   args.with_defaults :operation => "release", :install => 'false', :run => 'false'
