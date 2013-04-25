@@ -9,7 +9,6 @@
     <link href='css/jquery.mobile.iscrollview.css' rel='stylesheet'>
     <link href='css/jquery.mobile.iscrollview-pull.css' rel='stylesheet'>
     <link href='css/main.css' rel='stylesheet'>
-    <!-- Debug at http://weinre.kgdesignes.com/client/#soyreportero@android -->
     <script charset='utf-8' src='cordova-2.6.0-android.js' type='text/javascript'></script>
     <script charset='utf-8' src='js/lib/jquery-1.9.1.min.js' type='text/javascript'></script>
     <script charset='utf-8' src='js/lib/jquery.mobile.router.js' type='text/javascript'></script>
@@ -31,16 +30,13 @@
       var platform = "android";
     </script>
     <script charset='utf-8' id='list-page-list-item-template' type='text/template'>
-      <li class='report-item-li'>
-        <a data-transition='slide' href='#view?<%- reporte.tipo %>:<%- reporte.slug %>'>
-          <img src='<%- reporte.thumbnail %>'>
-            <span class='title'>
-              <%- reporte.fecha_texto %> (<%- reporte.tipo %>)
-              <br>
-              <%- reporte.titulo %>
-            </span>
-          </img>
-        </a>
+      <li class='report-item-li' data-link='#view?<%- reporte.tipo %>:<%- reporte.slug %>'>
+        <img src='<%- reporte.thumbnail %>'>
+        <span class='title'>
+          <%- reporte.fecha_texto %> (<%- reporte.tipo %>)
+          <br>
+          <%- reporte.titulo %>
+        </span>
       </li>
     </script>
   </head>
@@ -63,12 +59,12 @@
         <div data-role='navbar'>
           <ul>
             <li>
-              <a class='ui-btn-active ui-state-persist' data-icon='plus' data-theme='' href='#main'>
+              <a class='ui-btn-active ui-state-persist' data-icon='plus' data-theme='' data-transition='none' href='#main'>
                 Enviar reporte
               </a>
             </li>
             <li>
-              <a data-icon='grid' data-theme='' href='#list'>
+              <a data-icon='grid' data-theme='' data-transition='none' href='#list'>
                 Ver reportes
               </a>
             </li>
@@ -110,12 +106,12 @@
         <div data-role='navbar'>
           <ul>
             <li>
-              <a class='ui-btn-active ui-state-persist' data-icon='plus' data-theme='' href='#main'>
+              <a class='ui-btn-active ui-state-persist' data-icon='plus' data-theme='' data-transition='none' href='#main'>
                 Enviar reporte
               </a>
             </li>
             <li>
-              <a data-icon='grid' data-theme='' href='#list'>
+              <a data-icon='grid' data-theme='' data-transition='none' href='#list'>
                 Ver reportes
               </a>
             </li>
@@ -173,12 +169,12 @@
         <div data-role='navbar'>
           <ul>
             <li>
-              <a class='ui-btn-active ui-state-persist' data-icon='plus' data-theme='' href='#main'>
+              <a class='ui-btn-active ui-state-persist' data-icon='plus' data-theme='' data-transition='none' href='#main'>
                 Enviar reporte
               </a>
             </li>
             <li>
-              <a data-icon='grid' data-theme='' href='#list'>
+              <a data-icon='grid' data-theme='' data-transition='none' href='#list'>
                 Ver reportes
               </a>
             </li>
@@ -209,12 +205,12 @@
         <div data-role='navbar'>
           <ul>
             <li>
-              <a data-icon='plus' data-theme='' href='#main'>
+              <a data-icon='plus' data-theme='' data-transition='none' href='#main'>
                 Enviar reporte
               </a>
             </li>
             <li>
-              <a class='ui-btn-active ui-state-persist' data-icon='grid' data-theme='' href='#list'>
+              <a class='ui-btn-active ui-state-persist' data-icon='grid' data-theme='' data-transition='none' href='#list'>
                 Ver reportes
               </a>
             </li>
@@ -241,12 +237,12 @@
         <div data-role='navbar'>
           <ul>
             <li>
-              <a data-icon='plus' data-theme='' href='#main'>
+              <a data-icon='plus' data-theme='' data-transition='none' href='#main'>
                 Enviar reporte
               </a>
             </li>
             <li>
-              <a class='ui-btn-active ui-state-persist' data-icon='grid' data-theme='' href='#list'>
+              <a class='ui-btn-active ui-state-persist' data-icon='grid' data-theme='' data-transition='none' href='#list'>
                 Ver reportes
               </a>
             </li>

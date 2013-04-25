@@ -2,19 +2,27 @@ $(document).on('pageinit', '#list', function(e, pageOptions) {
   var listElement = $('#list-reports', this);
   var listItemTemplate = _.template($('script#list-page-list-item-template').html(), null, {variable: 'reporte'});
 
+  function onListClick() {
+    ui.navTo($(this).attr('data-link'));
+  }
+
   function onApiReset() {
     listElement.empty();
-    //$("#list-reports").listview("refresh");
+    $("#list-reports").listview("refresh");
     api.more();
   }
 
   function onApiMoreLoaded(data) {
-    console.log('Data loaded');
+    console.log('Data loaded: ', data);
     var i = 0;
-    var html = '';
+    var html;
+    var item;
 
     for(i=0; i< data.length; i++) {
-      $("#list-reports").append(listItemTemplate(data[i]));
+      html = $.parseHTML(listItemTemplate(data[i]));
+      item = $(html).on('click', onListClick);
+
+      $("#list-reports").append(item);
     }
 
     $("#list-reports").listview("refresh");

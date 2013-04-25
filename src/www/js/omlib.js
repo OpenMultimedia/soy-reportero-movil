@@ -500,7 +500,7 @@ ApiStream.prototype.moreClips_ = function() {
 
   $.
       getJSON(
-        'http://multimedia.tlsur.net/api/clip/?detalle=normal&tipo=soy-reportero&autenticado=w3bt3l3sUrTV',
+        'http://multimedia.tlsur.net/api/clip/?detalle=normal&tipo=soy-reportero&autenticado=w3bt3l3sUrTV&callback=?',
         {'primero': this.clipOffset_ + 1, 'ultimo': this.clipOffset_ + this.pageSize_ - this.clips_.length}
       ).
       done(_.bind(this.onClipsLoaded_, this)).
@@ -512,7 +512,7 @@ ApiStream.prototype.morePics_ = function() {
 
   $.
       getJSON(
-        'http://multimedia.tlsur.net/api/imagen/?tipo=soy-reportero&autenticado=w3bt3l3sUrTV',
+        'http://multimedia.tlsur.net/api/imagen/?tipo=soy-reportero&autenticado=w3bt3l3sUrTV&callback=?',
         {'primero': this.picOffset_ + 1, 'ultimo': this.picOffset_ + this.pageSize_ - this.pics_.length}
       ).
       done(_.bind(this.onPicsLoaded_, this)).

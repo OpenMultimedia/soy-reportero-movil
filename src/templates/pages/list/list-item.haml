@@ -1,8 +1,7 @@
-%li{:class => 'report-item-li'}
-  %a{:href => "#view?<%- reporte.tipo %>:<%- reporte.slug %>", :data => {:transition => 'slide'}}
-    %img{:src => "<%- reporte.thumbnail %>"}
-      %span{:class =>  'title'}
-        <%- reporte.fecha_texto %> (<%- reporte.tipo %>)
-        %br
-        <%- reporte.titulo %>
+%li{:class => 'report-item-li', :data => {:link => '#view?<%- reporte.tipo %>:<%- reporte.slug %>'}}
+  %img{:src => "<%- reporte.thumbnail %>"}
+  %span{:class =>  'title'}
+    <%- reporte.fecha_texto %> (<%- reporte.tipo %>)
+    %br
+    <%- reporte.titulo %>
 

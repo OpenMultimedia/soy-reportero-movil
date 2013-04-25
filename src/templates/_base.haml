@@ -9,8 +9,8 @@
     %div{:data => {:role => 'navbar'}}
       %ul
         %li
-          %a{getNavCssClass(page, :main), :href => getPageId(:main), :data => {:theme => "", :icon => "plus"}}
+          %a{getNavCssClass(page, :main), :href => getPageId(:main), :data => {:theme => "", :icon => "plus", :transition => "none"}}
             Enviar reporte
         %li
-          %a{getNavCssClass(page, :list), :href => getPageId(:list), :data => {:theme => "", :icon => "grid"}}
+          %a{getNavCssClass(page, :list), :href => getPageId(:list), :data => {:theme => "", :icon => "grid", :transition => "none"}}
             Ver reportes
