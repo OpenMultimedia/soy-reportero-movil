@@ -22,7 +22,7 @@ $(document).on('pageinit', '#select', function(e, pageOptions) {
     if (CordovaDevice.supportsMedia(button.mediaType, button.mediaSource)) {
       $(e.target).
         find(button.selector).
-        css('display', '').
+        show().
         on('click', _.partial(ui.launchCapture, button.mediaType, button.mediaSource));
     }
   }
@@ -34,5 +34,9 @@ $(document).on('pageinit', '#select', function(e, pageOptions) {
   manager.on(ReportEvent.UploadError, _.bind(ui.onUploadError, ui));
 });
 
-$(document).on('pagechange', '#select', function(e, pageOptions) {
+$(document).on('pagebeforeshow', '#select', function(e, pageOptions) {
+  var report = manager.getCurrentReport();
+  if (!report || report.getStatus() == ReportStatus.Published) {
+    manager.newReport();
+  }
 });

@@ -21,29 +21,20 @@ var ui = {
   },
   onCaptureSuccess: function(uri) {
     console.log('Captured: ' + uri);
-    manager.upload();
-
     ui.navTo('#form');
+    manager.upload();
   },
   onCaptureError: function(error) {
     console.error(error);
   },
   onUploadProgress: function(p) {
-    var full = $('#progress-container').width();
 
-    $('#progress-bar-indicator').width(full / 100 * p.percentLoaded);
-
-    $('#progress-text').text('Subiendo archivo: ' + p.percentLoaded + '%');
   },
   onUploadError: function() {
-    $('#progress-text').text('Error subiendo el archivo');
-    $('#progress-retry-button').show();
+
   },
   onUploadSuccess: function() {
-    var full = $('#progress-container').width();
-    $('#progress-bar-indicator').width(full);
-    $('#progress-text').text('Archivo subido con éxito');
-    $('#send-button-container').show();
+
   },
   onPullDown: function() {
     api.reset();

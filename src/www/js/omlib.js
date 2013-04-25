@@ -20,7 +20,9 @@ var ReportEvent = {
   CaptureSuccess: 'capture_success',
   CaptureError: 'capture_error',
   UploadSuccess: 'upload_success',
-  UploadError: 'upload_error'
+  UploadError: 'upload_error',
+  PublishSuccess: 'publish_success',
+  PublishError: 'publish_error'
 };
 
 var MediaType = {
@@ -82,8 +84,28 @@ Report.prototype.getFileUri = function() {
   return this.file_uri_;
 };
 
+Report.prototype.setFileId = function(file_id) {
+  this.file_id_ = file_id;
+};
+
+Report.prototype.getFileId = function() {
+  return this.file_id_;
+};
+
 Report.prototype.setInfo = function(info) {
   this.info_ = info;
+};
+
+Report.prototype.getInfo = function(info) {
+  return this.info_;
+};
+
+Report.prototype.setTipoReporte = function(tipo) {
+  this.tipoReporte_ = tipo;
+};
+
+Report.prototype.getTipoReporte = function(tipo) {
+  return this.tipoReporte_;
 };
 
 var ReportManager = function() {
@@ -151,8 +173,12 @@ ReportManager.prototype.onCaptureError_ = function(error) {
   this.onSelectFileError_(error);
 };
 
-ReportManager.prototype.onUploadSuccess_ = function() {
+ReportManager.prototype.onUploadSuccess_ = function(data) {
+  data = $.parseJSON(data.response);
+
   this.uploading_ = false;
+  console.log('File uploaded: ', data);
+  this.getCurrentReport().setFileId(data['id']);
   this.getCurrentReport().setStatus(ReportStatus.MediaUploaded);
   this.trigger(ReportEvent.UploadSuccess);
 };
@@ -170,6 +196,10 @@ ReportManager.prototype.capture = function(type, source) {
   this.capturing_ = true;
 
   this.getCurrentReport().setStatus(ReportStatus.MediaCapturing);
+  if (type == MediaType.Video)
+    this.getCurrentReport().setTipoReporte(TipoReporte.Video);
+  else
+    this.getCurrentReport().setTipoReporte(TipoReporte.Imagen);
 
   if (source == MediaSource.Camera) {
     if (type == MediaType.Video) {
@@ -257,8 +287,79 @@ ReportManager.prototype.uploadAbort = function() {
   }
 };
 
-ReportManager.prototype.publish = function() {
+ReportManager.prototype.onPublishSuccess_ = function(dato, textStatus, jqXHR) {
+  this.publishing_ = false;
+  this.getCurrentReport().setStatus(ReportStatus.Published);
+  var response = JSON.parse(jqXHR['responseText']);
+  console.log('Published', response);
+  this.trigger(ReportEvent.PublishSuccess, response);
+};
 
+ReportManager.prototype.onPublishError_ = function(jqXHR, textStatus, errorThrown){
+  this.publishing_ = false;
+  console.log(jqXHR);
+  console.log(textStatus);
+  console.log(errorThrown);
+  this.trigger(ReportEvent.PublishError, errorThrown);
+}
+
+ReportManager.prototype.signRequest = function(params_dict, key, secret) {
+  function sorted_keys(obj) {
+    var keys = [];
+    for (var key in obj) {
+      if (obj.hasOwnProperty(key))
+      {
+        keys.push(key);
+      }
+    }
+    return keys.sort();
+  }
+
+  params_dict['key'] = key;
+  cadena = secret;
+  var i = 0;
+  var sorted_k = sorted_keys(params_dict);
+  for (i = 0; i < sorted_k.length; i++) {
+    var new_key = sorted_k[i];
+    cadena += new_key + params_dict[new_key];
+  }
+  return md5(cadena);
+};
+
+ReportManager.prototype.publish = function() {
+  this.publishing_ = true;
+  this.getCurrentReport().setStatus(ReportStatus.Publishing);
+
+  var data = this.getCurrentReport().getInfo();
+
+  data['tipo'] = 'soy-reportero';
+  data['archivo'] = this.getCurrentReport().getFileId();
+
+  var security_key = 'k4}"-^30C$:3l04$(/<5"7*6|Ie"6x';
+  var key = 'telesursoyreporteroplonepruebas';
+  var signature = this.signRequest(data, key, security_key);
+
+  data['signature'] = signature;
+
+  console.log('Publishing with : ', data);
+
+  var apiUrl;
+
+  if (this.getCurrentReport().getTipoReporte() == TipoReporte.Video) {
+    apiUrl = 'http://multimedia.tlsur.net/api/clip/';
+  } else {
+    apiUrl = 'http://multimedia.tlsur.net/api/imagen/';
+  }
+
+  $.ajax({
+    type: 'POST',
+    contentType: 'application/x-www-form-urlencoded',
+    url: apiUrl,
+    dataType: "json",
+    data: data,
+    success: _.bind(this.onPublishSuccess_, this),
+    error: _.bind(this.onPublishError_, this)
+  });
 };
 
 ReportManager.prototype.getCurrentReport = function() {

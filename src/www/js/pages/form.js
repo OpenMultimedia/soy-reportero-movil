@@ -1,92 +1,87 @@
 function cleanForm() {
-  $(".progressbar-container").css("display","none");
-  $(".progressbar").css("width", "0%");
   $("#name-input").val("");
   $("#title-input").val("");
   $("#description-input").val("");
   $("#description-input").text("");
-  $("#file-id-input").val("");
-  $("#send-button").remove();
+
+  $("#send-button").hide();
 }
 
-function sorted_keys(obj) {
-  var keys = [];
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key))
-    {
-      keys.push(key);
-    }
-  }
-  return keys.sort();
-}
-
-function sing_request(params_dict, key, secret) {
-  params_dict['key'] = key;
-  cadena = secret;
-  var i = 0;
-  var sorted_k = sorted_keys(params_dict);
-  for (i = 0; i < sorted_k.length; i++) {
-    var new_key = sorted_k[i];
-    cadena += new_key + params_dict[new_key];
-  }
-  return md5(cadena);
-}
-
-function post_report() {
-  var data = {'tipo': 'soy-reportero'};
-  var name = $("#name-input").val();
-  if(name) {
-    data['titulo'] = name;
-  }
-  var description = $("#description-input").val();
-  if(description) {
-    data['report'] = description;
-  }
-  var file_id = $("#file-id-input").val();
-  if(file_id) {
-    data['archivo'] = file_id;
-  }
-
-  var url_post = 'http://multimedia.tlsur.net/api/imagen/';
-  if (mediaType == "video") {
-    url_post = 'http://multimedia.tlsur.net/api/clip/';
-  }
-  security_key = 'k4}"-^30C$:3l04$(/<5"7*6|Ie"6x';
-    key = 'telesursoyreporteroplonepruebas';
-    var signature = sing_request(data, key, security_key);
-    data['signature'] = signature;
-    $.ajax({
-      type: 'POST',
-      contentType: 'application/x-www-form-urlencoded',
-
-      url: url_post,
-      dataType: "json",
-      data: data,
-      success: function(dato, textStatus, jqXHR){
-        var response = JSON.parse(jqXHR['responseText']);
-        var slug = response['slug'];
-        cleanForm();
-        $("#acept-success-button").click(function() {
-          $.mobile.changePage("#main");
-        });
-        $("#dialogreportsucess").trigger("click");
-        $("#send-button").remove();
-      },
-      error: function(jqXHR, textStatus, errorThrown){
-        console.log(jqXHR);
-        console.log(textStatus);
-        console.log(errorThrown);
-      }
-    });
-  }
-
-$(document).on('create', '#form', function(e, pageOptions) {
+$(document).on('pagecreate', '#form', function(e, pageOptions) {
   $('#send-button').on('click', function(e) {
-    post_report();
+
+    manager.getCurrentReport().setInfo({
+      'titulo': $("#name-input").val(),
+      'report': $("#description-input").val(),
+    });
+
+    $("#send-button").hide();
+    $('#send-progress-text').text("Publicando...").show();
+    $("#send-continue-button").hide();
+
+    $('#form div[data-iscroll]').iscrollview('refresh');
+
+    manager.publish();
+  });
+
+  manager.on(ReportEvent.UploadSuccess, function(data) {
+    var full = $('#progress-container').width();
+
+    $('#progress-bar-indicator').width(full);
+    $('#progress-text').text('Archivo subido con éxito');
+
+    $("#send-button").show();
+    $('#send-progress-text').hide();
+    $("#send-continue-button").hide();
+
+    $('#form div[data-iscroll]').iscrollview('refresh');
+  });
+
+  manager.on(ReportEvent.UploadProgress, function(p) {
+
+    var full = $('#progress-container').width();
+
+    $('#progress-bar-indicator').width(full / 100 * p.percentLoaded);
+    $('#progress-text').text('Subiendo archivo: ' + p.percentLoaded + '%');
+  });
+
+  manager.on(ReportEvent.UploadError, function(e) {
+    $('#progress-text').text('Error subiendo el archivo');
+
+    //TODO: Enable Retry button functionality
+    $('#progress-retry-button').show();
+
+    $('#form div[data-iscroll]').iscrollview('refresh');
+  });
+
+  manager.on(ReportEvent.PublishSuccess, function(data) {
+    console.log("Yeah");
+    $("#send-button").hide();
+    $('#send-progress-text').text("Reporte publicado con éxito").show();
+    $("#send-continue-button").show();
+
+    $('#form div[data-iscroll]').iscrollview('refresh');
   });
 });
 
 $(document).on('pagebeforeshow', '#form', function(e, pageOptions) {
-  $('#progress-retry-button').hide();
-  $('#send-button-container').hide();
+  var report = manager.getCurrentReport();
+
+  if (report.getStatus() <= ReportStatus.MediaUploading) {
+
+    $('#progress-retry-button').hide();
+    $('#send-button').hide();
+    $('#send-progress-text').hide();
+    $("#send-continue-button").hide();
+
+  } else if (report.getStatus() >= ReportStatus.MediaUploaded) {
+
+    $('#progress-retry-button').hide();
+    $('#send-button').show();
+    $('#send-progress-text').hide();
+    $("#send-continue-button").hide();
+
+  }
+
+  $('#form div[data-iscroll]').iscrollview('refresh');
 });

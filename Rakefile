@@ -51,9 +51,9 @@ task :android_www => ANDROID_INDEX
 task :android, [:operation, :install, :run] => :android_www do |t, args|
   args.with_defaults :operation => "release", :install => 'false', :run => 'false'
 
-  install = Set['yes', 'y', 'si', 'true', '1'].include? args[:install].downcase
+  install = Set['yes', 'y', 'si', 's', 'true', 't', '1'].include? args[:install].downcase
 
-  run = Set['yes', 'y', 'si', 'true', '1'].include? args[:run].downcase
+  run = Set['yes', 'y', 'si', 's', 'true', 't', '1'].include? args[:run].downcase
 
   command = [ Rake::Win32.windows? ? 'ant.bat' : 'ant', '-f', 'src/android/build.xml' ]
 

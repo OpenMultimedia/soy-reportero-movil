@@ -23,6 +23,10 @@
     %label{:for => "description"}
       Descripción
     %textarea{:name => "description", :id => "description-input", :placeholder => ""}
-%div{:id => "send-button-container"}
-  %a{:id => "send-button", :data => {:role => 'button'}}
-    Enviar reporte
+%a{:id => "send-button", :data => {:role => 'button'}}
+  Enviar reporte
+%div{:id => "send-progress-text"}
+  Progreso de envio
+%a{:id => "send-continue-button", :href => "#main", :data => {:role => 'button'}}
+  Ir al principio
+
