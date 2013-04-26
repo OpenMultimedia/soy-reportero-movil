@@ -363,7 +363,7 @@ ReportManager.prototype.publish = function() {
 };
 
 ReportManager.prototype.getCurrentReport = function() {
-  return this.currentReport_ >= 0 ? this.reports_[this.currentReport_] : null;
+  return this.currentReport_ >= 0 ? this.reports_[this.currentReport_] : this.newReport();
 };
 
 TipoReporte = {

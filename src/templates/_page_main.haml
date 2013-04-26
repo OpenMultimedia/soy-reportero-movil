@@ -1,6 +1,20 @@
 - # encoding: utf-8
 %div{:class => "content"}
-  %a{:id => "create-report-button", :href => "#select", :data => {:role => "button"}}
+  %a{:id => "create-report-button", :class => "ui-btn-right", :data => {:role => "actionsheet", :icon => "plus"}}
     Crear reporte nuevo
+  %div{}
+    %a{:id => "capture-photo-button", :data => {:role => 'button', :transition =>"slide"}}
+      Tomar Foto
+    %a{:id => "capture-video-button", :data => {:role => 'button', :transition => "slide"}}
+      Tomar Video
+    %br
+    %a{:id => "select-photo-button", :data => {:role => 'button', :transition => "slide"}}
+      Foto de galería
+    %a{:id => "select-video-button", :data => {:role => 'button', :transition => "slide"}}
+      Video de galería
+    %br
+    %a{:data => {:role => "button", :rel => "close", :href => "#"}}
+      Cancel
+
   %a{:id => "edit-report-button", :href => "#form", :data => {:role => "button"}}
     Continuar reporte anterior
