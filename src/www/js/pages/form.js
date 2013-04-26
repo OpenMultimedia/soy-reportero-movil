@@ -12,7 +12,7 @@ $(document).on('pagecreate', '#form', function(e, pageOptions) {
 
     manager.getCurrentReport().setInfo({
       'titulo': $("#name-input").val(),
-      'report': $("#description-input").val(),
+      'report': $("#description-input").val()
     });
 
     $("#send-button").hide();
@@ -57,7 +57,7 @@ $(document).on('pagecreate', '#form', function(e, pageOptions) {
   manager.on(ReportEvent.PublishSuccess, function(data) {
     console.log("Yeah");
     $("#send-button").hide();
-    $('#send-progress-text').text("Reporte publicado con éxito").show();
+    $('#send-progress-text').text("Reporte cargado con éxito").show();
     $("#send-continue-button").show();
 
     $('#form div[data-iscroll]').iscrollview('refresh');
@@ -66,16 +66,14 @@ $(document).on('pagecreate', '#form', function(e, pageOptions) {
 
 $(document).on('pagebeforeshow', '#form', function(e, pageOptions) {
   var report = manager.getCurrentReport();
-
   if (report.getStatus() <= ReportStatus.MediaUploading) {
-
+    cleanForm();
     $('#progress-retry-button').hide();
     $('#send-button').hide();
     $('#send-progress-text').hide();
     $("#send-continue-button").hide();
 
   } else if (report.getStatus() >= ReportStatus.MediaUploaded) {
-
     $('#progress-retry-button').hide();
     $('#send-button').show();
     $('#send-progress-text').hide();

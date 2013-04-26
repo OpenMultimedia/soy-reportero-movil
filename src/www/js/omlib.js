@@ -301,7 +301,7 @@ ReportManager.prototype.onPublishError_ = function(jqXHR, textStatus, errorThrow
   console.log(textStatus);
   console.log(errorThrown);
   this.trigger(ReportEvent.PublishError, errorThrown);
-}
+};
 
 ReportManager.prototype.signRequest = function(params_dict, key, secret) {
   function sorted_keys(obj) {
