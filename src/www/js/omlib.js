@@ -444,7 +444,7 @@ ApiStream.prototype.createObjectFromPic_ = function(image) {
     'thumbnail_mediano': image['thumbnail_mediano'],
     'thumbnail_grande': image['thumbnail_grande'],
     //TODO: Cual es la imagen a usar
-    'thumbnail': image['thumbnail_pequeno'],
+    'thumbnail': image['thumbnail_pequeno']
   };
 };
 
@@ -505,7 +505,7 @@ ApiStream.prototype.moreClips_ = function() {
       ).
       done(_.bind(this.onClipsLoaded_, this)).
       fail(_.bind(this.onClipsLoadedError_, this));
-}
+};
 
 ApiStream.prototype.morePics_ = function() {
   this.loadingPics_ = true;

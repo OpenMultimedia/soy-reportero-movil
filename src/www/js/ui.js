@@ -54,7 +54,6 @@ var router = new $.mobile.Router({
     var tipo = match[1];
     var slug = match[2];
 
-    console.log("Params", tipo, slug);
     ui.setSelectedReport(tipo, slug);
 
     var report = api.fromCache(ui.selectedSlug);
@@ -65,7 +64,7 @@ var router = new $.mobile.Router({
     var isVideo = (ui.selectedType == TipoReporte.Video);
 
     $("#report-img").hide();
-
+    $("#report-title").text(report.titulo);
     $("#report-description").text(report.descripcion);
 
     if(isVideo) {

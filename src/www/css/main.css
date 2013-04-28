@@ -18,3 +18,11 @@
   position: absolute;
   width: 100%;
 }
+
+#report-title {
+  text-align: center;
+}
+
+.ui-header > .ui-btn.send-report {
+  display: none;
+}

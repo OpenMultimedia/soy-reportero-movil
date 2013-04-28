@@ -8,8 +8,8 @@ function cleanForm() {
 }
 
 $(document).on('pagecreate', '#form', function(e, pageOptions) {
-  $('#send-button').on('click', function(e) {
 
+  function sendReport(e) {
     manager.getCurrentReport().setInfo({
       'titulo': $("#name-input").val(),
       'report': $("#description-input").val()
@@ -22,7 +22,10 @@ $(document).on('pagecreate', '#form', function(e, pageOptions) {
     $('#form div[data-iscroll]').iscrollview('refresh');
 
     manager.publish();
-  });
+  }
+
+  $('#send-button').on('click', sendReport);
+  $('.send-report').on('click', sendReport);
 
   manager.on(ReportEvent.UploadSuccess, function(data) {
     var full = $('#progress-container').width();
@@ -31,6 +34,8 @@ $(document).on('pagecreate', '#form', function(e, pageOptions) {
     $('#progress-text').text('Archivo subido con éxito');
 
     $("#send-button").show();
+    $(".send-report").css("display", "inline-block");
+    //var buton = "<a data-role='button' href='#listPage' class='ui-btn-right'>En vivo</a>"
     $('#send-progress-text').hide();
     $("#send-continue-button").hide();
 
@@ -55,11 +60,13 @@ $(document).on('pagecreate', '#form', function(e, pageOptions) {
   });
 
   manager.on(ReportEvent.PublishSuccess, function(data) {
-    console.log("Yeah");
     $("#send-button").hide();
+    $(".send-report").css("display", "none");
     $('#send-progress-text').text("Reporte cargado con éxito").show();
     $("#send-continue-button").show();
-
+    navigator.notification.alert("El reporte fue cargado correctamente",function() {
+      ui.navTo("#main");
+    },"Exito","Aceptar");
     $('#form div[data-iscroll]').iscrollview('refresh');
   });
 });
@@ -70,12 +77,14 @@ $(document).on('pagebeforeshow', '#form', function(e, pageOptions) {
     cleanForm();
     $('#progress-retry-button').hide();
     $('#send-button').hide();
+    $(".send-report").css("display", "none");
     $('#send-progress-text').hide();
     $("#send-continue-button").hide();
 
   } else if (report.getStatus() >= ReportStatus.MediaUploaded) {
     $('#progress-retry-button').hide();
     $('#send-button').show();
+    $(".send-report").css("display", "inline-block");
     $('#send-progress-text').hide();
     $("#send-continue-button").hide();
 

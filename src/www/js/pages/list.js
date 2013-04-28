@@ -36,3 +36,15 @@ $(document).on('pageinit', '#list', function(e, pageOptions) {
   api.on('more', onApiMoreLoaded);
   api.reset();
 });
+
+$(document).on('pagechange', function(e, pageOptions) {
+  var idPage = pageOptions.toPage.attr("id");
+  //$('a[data-rel="back"] .ui-btn-text').text("Volver");
+  $('#'+idPage+' div[data-iscroll]').iscrollview('refresh');
+  if (pageOptions.toPage.attr("id") == "list") {
+    $('#report-video').hide();
+    $('#report-img').hide();
+    $("#report-description").text("");
+    $("#report-title").text("");
+  }
+});

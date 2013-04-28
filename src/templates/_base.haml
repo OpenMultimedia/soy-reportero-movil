@@ -3,6 +3,8 @@
   %div{:id => "header", :position => "fixed",
     :data => {:role => "header", :theme => "a", :tap_toggle => "false"}}
     %h1 Soy Reportero
+    %a{:data => {:role => "button"}, :class => "ui-btn-right send-report"}
+      Enviar
   %div{:data => {:iscroll => true, :role => "content"}}
     = render_partial getPageTemplateName(page), { :platform => platform }
   %div{:id => 'navigation', :data => { :role  => 'footer', :theme => 'a', :position => 'fixed', :tap_toggle => "false"}}
@@ -10,7 +12,7 @@
       %ul
         %li
           %a{getNavCssClass(page, :main), :href => getPageId(:main), :data => {:theme => "", :icon => "plus", :transition => "none"}}
-            Enviar reporte
+            Nuevo reporte
         %li
           %a{getNavCssClass(page, :list), :href => getPageId(:list), :data => {:theme => "", :icon => "grid", :transition => "none"}}
             Ver reportes
