@@ -26,12 +26,17 @@ var ui = {
   },
   onCaptureError: function(error) {
     console.error(error);
+    navigator.notification.alert("Error al capturar medio intente de nuevo",function() {
+      ui.navTo("#main");
+    },"Error","Aceptar");
   },
   onUploadProgress: function(p) {
 
   },
   onUploadError: function() {
-
+    navigator.notification.alert("Error al cargar archivo",function() {
+      ui.navTo("#main");
+    },"Error","Aceptar");
   },
   onUploadSuccess: function() {
 
