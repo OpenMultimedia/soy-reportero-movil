@@ -1,6 +1,8 @@
 - # encoding: utf-8
 %div{:class => "content"}
-  %a{:id => "create-report-button", :class => "ui-btn-right", :data => {:role => "actionsheet", :icon => "plus"}}
+  %a{:id => "create-report-button", :data => {:role => "button", :icon => "plus", :theme => "b"}}
+    Crear reporte nuevo
+  %a{:id => "create-report-hidden", :data => {:role => "actionsheet", :icon => "plus"}}
     Crear reporte nuevo
   %div{}
     %a{:id => "capture-photo-button", :data => {:role => 'button', :transition =>"slide"}}
@@ -18,3 +20,333 @@
 
   %a{:id => "edit-report-button", :href => "#form", :data => {:role => "button"}}
     Continuar reporte anterior
+
+  %fieldset{:data => {:role => "controlgroup"}}
+  %div{:data => {:role => "fieldcontain"}}
+    %label{:for => "name"}
+      Nombre
+    %input{:name => "name", :id => "name-input", :placeholder => "", :value => "", :type => "text"}
+  %div{:data => {:role => "fieldcontain"}}
+    %label{:for => "country"}
+      País
+    %select{:name => "country", :id => "country-input"}
+      %option{:value => 'None'}
+        (vacío)
+      %option{:value => 'AF'}
+        Afganistán
+      %option{:value => 'AL'}
+        Albania
+      %option{:value => 'AQ'}
+        Antártida
+      %option{:value => 'DZ'}
+        Argelia
+      %option{:value => 'AS'}
+        Samoa Americana
+      %option{:value => 'AD'}
+        Andorra
+      %option{:value => 'AO'}
+        Angola
+      %option{:value => 'AG'}
+        Antigua y Barbuda
+      %option{:value => 'AZ'}
+        Azerbaiyán
+      %option{:value => 'AR'}
+        Argentina
+      %option{:value => 'AU'}
+        Australia
+      %option{:value => 'AT'}
+        Austria
+      %option{:value => 'BS'}
+        Bahamas
+      %option{:value => 'BH'}
+        Bahréin
+      %option{:value => 'BD'}
+        Bangladesh
+      %option{:value => 'AM'}
+        Armenia
+      %option{:value => 'BB'}
+        Barbados
+      %option{:value => 'BE'}
+        Bélgica
+      %option{:value => 'BM'}
+        Bermudas
+      %option{:value => 'BT'}
+        Bután
+      %option{:value => 'BO'}
+        Bolivia
+      %option{:value => 'BA'}
+        Bosnia y Herzegovina
+      %option{:value => 'BW'}
+        Botsuana
+      %option{:value => 'BV'}
+        Isla Bouvet
+      %option{:value => 'BR'}
+        Brasil
+      %option{:value => 'BZ'}
+        Belice
+      %option{:value => 'IO'}
+        Territorio Británico del Océano Índico
+      %option{:value => 'SB'}
+        Islas Salomón
+      %option{:value => 'VG'}
+        Islas Vírgenes Británicas
+      %option{:value => 'BN'}
+        Brunéi
+      %option{:value => 'BG'}
+        Bulgaria
+      %option{:value => 'MM'}
+        Myanmar
+      %option{:value => 'BI'}
+        Burundi
+      %option{:value => 'BY'}
+        Bielorrusia
+      %option{:value => 'KH'}
+        Camboya
+      %option{:value => 'CM'}
+        Camerún
+      %option{:value => 'CA'}
+        Canadá
+      %option{:value => 'CV'}
+        Cabo Verde
+      %option{:value => 'KY'}
+        Islas Caimán
+      %option{:value => 'CF'}
+        República Centroafricana
+      %option{:value => 'LK'}
+        Sri Lanka
+      %option{:value => 'TD'}
+        Chad
+      %option{:value => 'CL'}
+        Chile
+      %option{:value => 'CN'}
+        China
+      %option{:value => 'TW'}
+        Taiwán
+      %option{:value => 'CX'}
+        Isla de Navidad
+      %option{:value => 'CC'}
+        Islas Cocos
+      %option{:value => 'CO'}
+        Colombia
+      %option{:value => 'KM'}
+        Comoras
+      %option{:value => 'YT'}
+        Mayotte
+      %option{:value => 'CG'}
+        República del Congo
+      %option{:value => 'CD'}
+        República Democrática del Congo
+      %option{:value => 'ZR'}
+        República Democrática del Congo
+      %option{:value => 'CK'}
+        Islas Cook
+      %option{:value => 'CR'}
+        Costa Rica
+      %option{:value => 'HR'}
+        Croacia
+      %option{:value => 'CU'}
+        Cuba
+      %option{:value => 'CY'}
+        Chipre
+      %option{:value => 'CZ'}
+        República Checa
+      %option{:value => 'BJ'}
+        Benín
+      %option{:value => 'DK'}
+        Dinamarca
+      %option{:value => 'DM'}
+        Dominica
+      %option{:value => 'DO'}
+        República Dominicana
+      %option{:value => 'EC'}
+        Ecuador
+      %option{:value => 'SV'}
+        El Salvador
+      %option{:value => 'GQ'}
+        Guinea Ecuatorial
+      %option{:value => 'ET'}
+        Etiopía
+      %option{:value => 'ER'}
+        Eritrea
+      %option{:value => 'EE'}
+        Estonia
+      %option{:value => 'FO'}
+        Islas Feroe
+      %option{:value => 'FK'}
+        Islas Malvinas
+      %option{:value => 'GS'}
+        Islas Georgias del Sur y Sandwich del Sur
+      %option{:value => 'FJ'}
+        Fiyi
+      %option{:value => 'FI'}
+        Finlandia
+      %option{:value => 'AX'}
+        Åland
+      %option{:value => 'FR'}
+        Francia
+      %option{:value => 'GF'}
+        Guayana Francesa
+      %option{:value => 'PF'}
+        Polinesia Francesa
+      %option{:value => 'TF'}
+        Territorios Australes Franceses
+      %option{:value => 'DJ'}
+        Yibuti
+      %option{:value => 'GA'}
+        Gabón
+      %option{:value => 'GE'}
+        Georgia
+      %option{:value => 'GM'}
+        Gambia
+      %option{:value => 'PS'}
+        Palestina (ANP)
+      %option{:value => 'DE'}
+        Alemania
+      %option{:value => 'GH'}
+        Ghana
+      %option{:value => 'GI'}
+        Gibraltar
+      %option{:value => 'KI'}
+        Kiribati
+      %option{:value => 'GR'}
+        Grecia
+      %option{:value => 'GL'}
+        Groenlandia
+      %option{:value => 'GD'}
+        Granada
+      %option{:value => 'GP'}
+        Guadalupe
+      %option{:value => 'GU'}
+        Guam
+      %option{:value => 'GT'}
+        Guatemala
+      %option{:value => 'GN'}
+        Guinea
+      %option{:value => 'GY'}
+        Guyana
+      %option{:value => 'HT'}
+        Haití
+      %option{:value => 'HM'}
+        Islas Heard y McDonald
+      %option{:value => 'VA'}
+        Ciudad del Vaticano
+      %option{:value => 'HN'}
+        Honduras
+      %option{:value => 'HK'}
+        Hong Kong
+      %option{:value => 'HU'}
+        Hungría
+      %option{:value => 'IS'}
+        Islandia
+      %option{:value => 'IN'}
+        India
+      %option{:value => 'ID'}
+        Indonesia
+      %option{:value => 'IR'}
+        Irán
+      %option{:value => 'IQ'}
+        Iraq
+      %option{:value => 'IE'}
+        Irlanda
+      %option{:value => 'IL'}
+        Israel
+      %option{:value => 'IT'}
+        Italia
+      %option{:value => 'CI'}
+        Costa de Marfil
+      %option{:value => 'JM'}
+        Jamaica
+      %option{:value => 'JP'}
+        Japón
+      %option{:value => 'KZ'}
+        Kazajistán
+      %option{:value => 'JO'}
+        Jordania
+      %option{:value => 'KE'}
+        Kenia
+      %option{:value => 'KP'}
+        Corea del Norte
+      %option{:value => 'KR'}
+        Corea del Sur
+      %option{:value => 'KW'}
+        Kuwait
+      %option{:value => 'KG'}
+        Kirguistán
+      %option{:value => 'LA'}
+        Laos
+      %option{:value => 'LB'}
+        Líbano
+      %option{:value => 'LS'}
+        Lesoto
+      %option{:value => 'LV'}
+        Letonia
+      %option{:value => 'LR'}
+        Liberia
+      %option{:value => 'LY'}
+        Libia
+      %option{:value => 'LI'}
+        Liechtenstein
+      %option{:value => 'LT'}
+        Lituania
+      %option{:value => 'LU'}
+        Luxemburgo
+      %option{:value => 'MO'}
+        Macao
+      %option{:value => 'MG'}
+        Madagascar
+      %option{:value => 'MW'}
+        Malawi
+      %option{:value => 'MY'}
+        Malasia
+      %option{:value => 'MV'}
+        Maldivas
+      %option{:value => 'ML'}
+        Malí
+      %option{:value => 'MT'}
+        Malta
+      %option{:value => 'MQ'}
+        Martinica
+      %option{:value => 'MR'}
+        Mauritania
+      %option{:value => 'MU'}
+        Mauricio
+      %option{:value => 'MX'}
+        México
+      %option{:value => 'MC'}
+        Mónaco
+      %option{:value => 'MN'}
+        Mongolia
+      %option{:value => 'MD'}
+        Moldavia
+      %option{:value => 'ME'}
+        Montenegro
+      %option{:value => 'MS'}
+        Montserrat
+      %option{:value => 'MA'}
+        Marruecos
+      %option{:value => 'MZ'}
+        Mozambique
+      %option{:value => 'OM'}
+        Omán
+      %option{:value => 'NA'}
+        Namibia
+      %option{:value => 'NR'}
+        Nauru
+      %option{:value => 'NP'}
+        Nepal
+      %option{:value => 'NL'}
+        Países Bajos
+      %option{:value => 'AN'}
+        Antillas Neerlandesas
+      %option{:value => 'AW'}
+        Aruba
+      %option{:value => 'NC'}
+        Nueva Caledonia
+      %option{:value => 'VU'}
+        Vanuatu
+      %option{:value => 'NZ'}
+        Nueva Zelanda
+      %option{:value => 'NI'}
+        Nicaragua
+      %option{:value => 'NE'}
+        Níger

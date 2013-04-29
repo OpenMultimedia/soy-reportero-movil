@@ -41,7 +41,7 @@ var CordovaDevice = {
   },
   onReady_: function() {
     this.ready_ = true;
-    this.trigger('ready')
+    this.trigger('ready');
   },
   isReady: function() {
     return this.ready_;

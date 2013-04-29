@@ -1,5 +1,4 @@
 function cleanForm() {
-  $("#name-input").val("");
   $("#title-input").val("");
   $("#description-input").val("");
   $("#description-input").text("");
@@ -11,8 +10,10 @@ $(document).on('pagecreate', '#form', function(e, pageOptions) {
 
   function sendReport(e) {
     manager.getCurrentReport().setInfo({
-      'titulo': $("#name-input").val(),
-      'report': $("#description-input").val()
+      'titulo': $("#title-input").val(),
+      'report': $("#description-input").val(),
+      'nombre': $("#name-input").val(),
+      'country': $("#country-input").val()
     });
 
     $("#send-button").hide();
