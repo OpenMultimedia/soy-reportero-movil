@@ -10,6 +10,7 @@
     <link href='css/jquery.mobile.iscrollview.css' rel='stylesheet'>
     <link href='css/jquery.mobile.iscrollview-pull.css' rel='stylesheet'>
     <link href='css/main.css' rel='stylesheet'>
+    <link href='css/report_list.css' rel='stylesheet'>
     <script charset='utf-8' src='cordova-2.6.0-android.js' type='text/javascript'></script>
     <script charset='utf-8' src='js/lib/jquery-1.9.1.min.js' type='text/javascript'></script>
     <script charset='utf-8' src='js/lib/jquery.mobile.router.js' type='text/javascript'></script>
@@ -21,6 +22,8 @@
     <script charset='utf-8' src='js/lib/underscore.js' type='text/javascript'></script>
     <script charset='utf-8' src='js/lib/backbone.js' type='text/javascript'></script>
     <script charset='utf-8' src='js/lib/md5_lib.js' type='text/javascript'></script>
+    <script charset='utf-8' src='js/lib/jquery.dateFormat.js' type='text/javascript'></script>
+    <script charset='utf-8' src='js/lib/jquery.ellipsis.min.js' type='text/javascript'></script>
     <script charset='utf-8' src='js/omlib.js' type='text/javascript'></script>
     <script charset='utf-8' src='js/ui.js' type='text/javascript'></script>
     <script charset='utf-8' src='js/pages/main.js' type='text/javascript'></script>
@@ -31,16 +34,18 @@
     <script>
       var platform = "android";
     </script>
-    <script charset='utf-8' id='list-page-list-item-template' type='text/template'>
-      <li class='report-item-li' data-link='#view?<%- reporte.tipo %>:<%- reporte.slug %>'>
+    
+    <script id='list-page-list-item-template' type='text/template' charset='utf-8'>
+      <li class='report-item-li <%- reporte.tipo %>' data-link='#view?<%- reporte.tipo %>:<%- reporte.slug %>'>
         <img src='<%- reporte.thumbnail %>'>
-        <span class='title'>
-          <%- reporte.fecha_texto %> (<%- reporte.tipo %>)
-          <br>
-          <%- reporte.titulo %>
-        </span>
+
+        <span class='title'><%- reporte.titulo %></span>
+        <span class='name'><%- reporte.nombre %></span>
+        <span class='date'><%- reporte.fecha_verbose %></span>
+
       </li>
     </script>
+
   </head>
   <body>
     <div data-role='page' data-theme='a' id='main' style='background: url('css/images/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat;'>

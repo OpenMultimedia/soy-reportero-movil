@@ -1,0 +1,20 @@
+li.report-item-li {
+    position: relative;
+}
+
+li.report-item-li span.title {
+    
+}
+
+li.report-item-li span.name {
+    
+}
+
+
+li.report-item-li span.date {
+    position: absolute;
+    bottom: 0.1em;
+    right: 0.1em;
+
+    font-size: 0.7em;
+}

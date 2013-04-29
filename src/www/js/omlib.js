@@ -57,6 +57,9 @@ var CordovaDevice = {
       this.on('ready', func);
   }
 };
+
+var currentDate = new Date();
+
 _.extend(CordovaDevice, Backbone.Events);
 
 document.addEventListener('deviceready', _.bind(CordovaDevice.triggerReadyAsync_, CordovaDevice), false);
@@ -384,6 +387,7 @@ function ApiStream(opt_options) {
 
 _.extend(ApiStream.prototype, Backbone.Events);
 
+
 ApiStream.prototype.parseDate_ = function(dateString) {
   var parts = dateString.split(' ', 2);
   var dateParts = parts[0].split('-', 3);
@@ -400,6 +404,9 @@ ApiStream.prototype.createObjectFromClip_ = function(clip) {
 
   var fecha_texto = '' + fecha.getDate() + '/' + (fecha.getMonth() + 1) +  '/' + fecha.getFullYear();
 
+  var formatoFecha = 'dd de MMMM' + ((fecha.getYear() != currentDate.getYear()) ? ', yyyy' : '');
+  var fecha_verbose = $.format.date(fecha, formatoFecha);
+
   return {
     'slug': clip['slug'],
     'titulo': clip['titulo'],
@@ -408,6 +415,7 @@ ApiStream.prototype.createObjectFromClip_ = function(clip) {
 
     'fecha': fecha,
     'fecha_texto': fecha_texto,
+    'fecha_verbose': fecha_verbose,
 
     'tipo': TipoReporte.Video,
 
