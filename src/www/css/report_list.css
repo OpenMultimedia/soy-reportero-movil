@@ -1,9 +1,15 @@
 li.report-item-li {
     position: relative;
+    padding: 5px 5px 5px 100px;
+}
+
+li.report-item-li img.ui-li-thumb {
+    min-height: 79px;
+    display: block;
 }
 
 li.report-item-li span.title {
-    
+    font-size: 0.9em;
 }
 
 li.report-item-li span.name {
