@@ -20,7 +20,7 @@
 #
 -->
 <widget>
-    <preference name="AllowInlineMediaPlayback" value="false" />
+    <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="AutoHideSplashScreen" value="true" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="true" />
@@ -40,7 +40,7 @@
 
     <plugins>
         <plugin name="Device" value="CDVDevice" />
-        <plugin name="Logger" value="CDVLogger" />
+        <!-- <plugin name="Logger" value="CDVLogger" /> -->
         <!-- <plugin name="Compass" value="CDVLocation" /> -->
         <!-- <plugin name="Accelerometer" value="CDVAccelerometer" /> -->
         <plugin name="Camera" value="CDVCamera" />
