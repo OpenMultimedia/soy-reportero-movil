@@ -1,11 +1,25 @@
 li.report-item-li {
-    position: relative;
     padding: 5px 5px 5px 100px;
 }
 
 li.report-item-li img.ui-li-thumb {
     min-height: 79px;
     display: block;
+}
+
+li.report-item-li.Foto img.ui-li-thumb {
+    
+}
+
+li.report-item-li.Foto img.play-icon {
+    display: none;
+}
+
+li.report-item-li.Video img.play-icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 40px;
 }
 
 li.report-item-li span.title {
@@ -18,9 +32,10 @@ li.report-item-li span.name {
 
 
 li.report-item-li span.date {
-    position: absolute;
-    bottom: 0.1em;
-    right: 0.1em;
-
+    display: block;
+    float: right;
     font-size: 0.7em;
+    line-height: 114px;
+    vertical-align: baseline;
+
 }

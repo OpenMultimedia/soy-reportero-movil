@@ -38,10 +38,12 @@
     <script id='list-page-list-item-template' type='text/template' charset='utf-8'>
       <li class='report-item-li <%- reporte.tipo %>' data-link='#view?<%- reporte.tipo %>:<%- reporte.slug %>'>
         <img src='<%- reporte.thumbnail %>'>
+        <img class="play-icon" src="css/images/play-icon.png" />
 
         <span class='title'><%- reporte.titulo %></span>
         <span class='name'><%- reporte.nombre %></span>
         <span class='date'><%- reporte.fecha_verbose %></span>
+
 
       </li>
     </script>
