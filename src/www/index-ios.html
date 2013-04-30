@@ -45,15 +45,14 @@
 
         <span class='date'><%- reporte.fecha_verbose %></span>
         <span class='title'><%- reporte.titulo %></span>
-        <span class='name'>Por: <%- reporte.usuario %></span>
+        <span class='name'><%- reporte.usuario %></span>
 
       </li>
     </script>
 
   </head>
 
-
-  <body>
+ <body>
     <div data-role='page' data-theme='a' id='main' style=''>
       <div data-role='header' data-tap-toggle='false' data-theme='a' id='header' position='fixed'>
         <h1>Soy Reportero</h1>
@@ -604,7 +603,7 @@
         </div>
       </div>
     </div>
-    <div data-add-back-btn='true' data-role='page' data-theme='a' id='select' style='background: url('css/images/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat;'>
+    <div data-add-back-btn='true' data-role='page' data-theme='a' id='select' style=''>
       <div data-role='header' data-tap-toggle='false' data-theme='a' id='header' position='fixed'>
         <h1>Soy Reportero</h1>
         <a class='ui-btn-right send-report' data-role='button'>
@@ -654,7 +653,7 @@
         </div>
       </div>
     </div>
-    <div data-add-back-btn='true' data-role='page' data-theme='a' id='form' style='background: url('css/images/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat;'>
+    <div data-add-back-btn='true' data-role='page' data-theme='a' id='form' style=''>
       <div data-role='header' data-tap-toggle='false' data-theme='a' id='header' position='fixed'>
         <h1>Soy Reportero</h1>
         <a class='ui-btn-right send-report' data-role='button'>
@@ -714,7 +713,7 @@
         </div>
       </div>
     </div>
-    <div data-role='page' data-theme='a' id='list' style='background: url('css/images/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat;'>
+    <div data-role='page' data-theme='a' id='list'>
       <div data-role='header' data-tap-toggle='false' data-theme='a' id='header' position='fixed'>
         <h1>Soy Reportero</h1>
         <a class='ui-btn-right send-report' data-role='button'>
@@ -753,7 +752,7 @@
         </div>
       </div>
     </div>
-    <div data-add-back-btn='true' data-role='page' data-theme='a' id='view' style='background: url('css/images/c9iwDqPgTFOFbb5GGvfn_mapa.png') no-repeat;'>
+    <div data-add-back-btn='true' data-role='page' data-theme='a' id='view' style=''>
       <div data-role='header' data-tap-toggle='false' data-theme='a' id='header' position='fixed'>
         <h1>Soy Reportero</h1>
         <a class='ui-btn-right send-report' data-role='button'>
@@ -762,6 +761,8 @@
       </div>
       <div data-iscroll data-role='content'>
         <h2 id='report-title'></h2>
+        <hr>
+        <h3 id="report-name"></h3>
         <div id='report-media-container' style='text-align:center'>
           <img id='report-img' style='width: 100%'>
           <div id='report-video' style='width: 100%'></div>
