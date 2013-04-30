@@ -32,10 +32,9 @@ li.report-item-li span.name {
 
 
 li.report-item-li span.date {
-    display: block;
-    float: right;
+    right: 8px;
+    bottom: 4px;
+    position: absolute;
     font-size: 0.7em;
-    line-height: 114px;
-    vertical-align: baseline;
 
 }
