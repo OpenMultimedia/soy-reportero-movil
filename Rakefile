@@ -34,7 +34,8 @@ PAGES = {
   :select => {},
   :form => {},
   :list => {},
-  :view => {}
+  :view => {},
+  :mine => {}
 }
 
 INDEXES.each_pair do |platform, index_file|

@@ -62,9 +62,13 @@ var router = new $.mobile.Router({
     ui.setSelectedReport(tipo, slug);
 
     var report = api.fromCache(ui.selectedSlug);
-
     //TODO: Comportamiento cuando el reporte no existe
-    if (!report) return;
+    if (!report) {
+      report = api.getJustChecked(slug);
+    }
+    if (!report) {
+      return;
+    }
 
     var isVideo = (ui.selectedType == TipoReporte.Video);
 

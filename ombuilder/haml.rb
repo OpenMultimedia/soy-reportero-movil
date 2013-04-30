@@ -26,7 +26,8 @@ class Haml::Context
       :select => :main,
       :form => :main,
       :list => :list,
-      :view => :list
+      :view => :list,
+      :mine => :mine,
     }
 
     if pages[current_page] == button

@@ -21,10 +21,8 @@ $(document).on('pageinit', '#list', function(e, pageOptions) {
     for(i=0; i< data.length; i++) {
       html = $.parseHTML(listItemTemplate(data[i]));
       item = $(html).on('click', onListClick);
-
       $("#list-reports").append(item);
     }
-
     $("#list-reports").listview("refresh");
   }
 

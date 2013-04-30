@@ -82,7 +82,7 @@ function errorQuery() {
   console.log("error el traer los datos");
 }
 
-function errorCB() {
+function errorCB(e,v) {
   navigator.notification.alert("Error al cargar la base de datos",function() {
     },"Error","Aceptar");
 }
@@ -92,8 +92,9 @@ function successCB() {
 }
 
 function populateDB(db) {
-  //db.executeSql('DROP TABLE IF EXISTS USER');
+  //db.executeSql('DROP TABLE IF EXISTS MINE');
   db.executeSql('CREATE TABLE IF NOT EXISTS USER (id unique, name VARCHAR(20), country VARCHAR(5))');
+  db.executeSql('CREATE TABLE IF NOT EXISTS MINE (id INTEGER PRIMARY KEY AUTOINCREMENT, slug VARCHAR(20), title VARCHAR(20), type VARCHAR(7))');
   db.executeSql('SELECT * FROM USER', [], querySuccess, errorQuery);
 }
 
@@ -107,7 +108,6 @@ function saveUserDB(db) {
 CordovaDevice.on('ready', function() {
   db = window.openDatabase("soyReporteroDB", "1.0", "Soy reportero", 200000);
   db.transaction(populateDB, errorCB, successCB);
-  populateDB(db);
 });
 
 function saveData() {

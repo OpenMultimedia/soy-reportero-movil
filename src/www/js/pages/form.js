@@ -63,6 +63,19 @@ $(document).on('pagecreate', '#form', function(e, pageOptions) {
   manager.on(ReportEvent.PublishSuccess, function(data) {
     $("#send-button").hide();
     $(".send-report").css("display", "none");
+
+    var slug = data.slug;
+    var type = manager.getCurrentReport().getTipoReporte();
+    //save report in the DB
+    function saveReportDB(db) {
+      var title = $("#title-input").val();
+      //db.executeSql('SELECT * FROM MINE', [], querySuccessMine, errorQuery);
+      db.executeSql('INSERT INTO MINE (slug, title, type) VALUES ("'+slug+'", "'+title+'", "'+type+'")');
+    }
+    db = window.openDatabase("soyReporteroDB", "1.0", "Soy reportero", 200000);
+    db.transaction(saveReportDB, errorCB, successCB);
+
+
     $('#send-progress-text').text("Reporte cargado con éxito").show();
     $("#send-continue-button").show();
     navigator.notification.alert("El reporte fue cargado correctamente",function() {
@@ -71,6 +84,9 @@ $(document).on('pagecreate', '#form', function(e, pageOptions) {
     $('#form div[data-iscroll]').iscrollview('refresh');
   });
 });
+
+
+
 
 $(document).on('pagebeforeshow', '#form', function(e, pageOptions) {
   var report = manager.getCurrentReport();
@@ -93,3 +109,4 @@ $(document).on('pagebeforeshow', '#form', function(e, pageOptions) {
 
   $('#form div[data-iscroll]').iscrollview('refresh');
 });
+

@@ -381,6 +381,7 @@ function ApiStream(opt_options) {
 
   this.loadingPics_ = false;
   this.loadingpics_ = false;
+  this.my_reports = {};
 
   this.reset();
 }
@@ -396,6 +397,14 @@ ApiStream.prototype.parseDate_ = function(dateString) {
   var date = new Date(dateParts[0], parseInt(dateParts[1], 10) - 1, dateParts[2], timeParts[0], timeParts[1], timeParts[2]);
 
   return date;
+};
+
+ApiStream.prototype.setJustChecked = function(slug, report) {
+  return this.my_reports[slug] = report;
+};
+
+ApiStream.prototype.getJustChecked = function(slug) {
+  return this.my_reports[slug];
 };
 
 ApiStream.prototype.createObjectFromClip_ = function(clip) {
@@ -510,8 +519,7 @@ ApiStream.prototype.more = function() {
 ApiStream.prototype.moreClips_ = function() {
   this.loadingClips_ = true;
 
-  $.
-      getJSON(
+  $.getJSON(
         'http://multimedia.tlsur.net/api/clip/?detalle=normal&tipo=soy-reportero&autenticado=w3bt3l3sUrTV&callback=?',
         {'primero': this.clipOffset_ + 1, 'ultimo': this.clipOffset_ + this.pageSize_ - this.clips_.length}
       ).
