@@ -70,6 +70,7 @@ var router = new $.mobile.Router({
 
     $("#report-img").hide();
     $("#report-title").text(report.titulo);
+    $("#report-name").text('Por: ' + report.usuario);
     $("#report-description").text(report.descripcion);
 
     if(isVideo) {
