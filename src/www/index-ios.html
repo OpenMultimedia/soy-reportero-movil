@@ -42,11 +42,10 @@
       <li class='report-item-li <%- reporte.tipo %>' data-link='#view?<%- reporte.tipo %>:<%- reporte.slug %>'>
         <img src='<%- reporte.thumbnail %>'>
         <img class="play-icon" src="css/images/play-icon.png" />
-        
+
         <span class='date'><%- reporte.fecha_verbose %></span>
         <span class='title'><%- reporte.titulo %></span>
-        <span class='name'><%- reporte.nombre %></span>
-        <span class='name'><%- reporte.usuario %></span>
+        <span class='name'>Por: <%- reporte.usuario %></span>
 
       </li>
     </script>

@@ -35,6 +35,15 @@ li.report-item-li span.date {
     right: 8px;
     bottom: 4px;
     position: absolute;
+    font-size: 0.75em;
+
+}
+
+li.report-item-li span.name {
+    left: 100px;
+    bottom: 4px;
+    position: absolute;
+    font-style: italic;
     font-size: 0.7em;
 
 }
