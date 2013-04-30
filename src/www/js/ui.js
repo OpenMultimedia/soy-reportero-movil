@@ -88,8 +88,13 @@ var router = new $.mobile.Router({
 
     } else {
       $('#report-video').hide();
+
+      $("#report-img").on("load", function() {
+        $('#view div[data-iscroll]').iscrollview('refresh');
+      });
       $("#report-img").show().attr("src", report.thumbnail_grande);
     }
+
   }
 },{
   defaultHandler: function(type, pageOptions, page) {
