@@ -1,19 +1,22 @@
 !!! 5
 %html
   %head
+    %title Soy Reportero
     %meta{:charset => "utf-8"}
+    
     %meta{:name => "viewport", :content => "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"}
+    
     - if platform == :ios
       %meta{:name => "apple-mobile-web-app-capable", :content => "yes"}
       %meta{:name => "apple-mobile-web-app-status-bar-style", :content => "black"}
 
-    %title Soy Reportero
+    
     %link{:rel => "stylesheet", :href => "css/jquery.mobile-1.3.1.css"}
-    /%link{:rel => "stylesheet", :href => "jqm_themes/android/android-theme.css"}
     %link{:rel => "stylesheet", :href => "css/jquery.mobile.actionsheet.css"}
     %link{:rel => "stylesheet", :href => "css/jquery.mobile.iscrollview.css"}
     %link{:rel => "stylesheet", :href => "css/jquery.mobile.iscrollview-pull.css"}
     %link{:rel => "stylesheet", :href => "css/main.css"}
+    %link{:rel => "stylesheet", :href => "css/report_list.css"}
     - if debug
       %script{:src => "http://weinre.kgdesignes.com/target/target-script-min.js#soyreportero@#{platform.to_s}"}
       / Debug at http://weinre.kgdesignes.com/client/#soyreportero@android
@@ -31,6 +34,8 @@
     %script{:type => "text/javascript", :charset => "utf-8", :src => "js/lib/iscroll.js"}
     %script{:type => "text/javascript", :charset => "utf-8", :src => "js/lib/jquery.mobile.iscrollview.js"}
 
+    %script{:type => "text/javascript", :charset => "utf-8", :src => "js/lib/jquery.dateFormat.js"}
+    %script{:type => "text/javascript", :charset => "utf-8", :src => "js/lib/jquery.ellipsis.min.js"}
 
     %script{:type => "text/javascript", :charset => "utf-8", :src => "js/lib/omplayer.telesur.js"}
 

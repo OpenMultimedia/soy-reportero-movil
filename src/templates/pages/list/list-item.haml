@@ -1,7 +1,10 @@
-%li{:class => 'report-item-li', :data => {:link => '#view?<%- reporte.tipo %>:<%- reporte.slug %>'}}
+%li{:class => 'report-item-li <%- reporte.tipo %>', :data => {:link => '#view?<%- reporte.tipo %>:<%- reporte.slug %>'}}
   %img{:src => "<%- reporte.thumbnail %>"}
+  %img{:src => "css/images/play-icon.png", :class => "play-icon"}
+  
   %span{:class =>  'title'}
-    <%- reporte.fecha_texto %> (<%- reporte.tipo %>)
-    %br
     <%- reporte.titulo %>
-
+  %span{:class =>  'name'}
+    <%- reporte.usuario %>
+  %span{:class =>  'date'}
+    <%- reporte.fecha_texto %>
