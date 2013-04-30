@@ -406,7 +406,6 @@ ApiStream.prototype.createObjectFromClip_ = function(clip) {
 
   var formatoFecha = 'dd de MMMM' + ((fecha.getYear() != currentDate.getYear()) ? ', yyyy' : '');
   var fecha_verbose = $.format.date(fecha, formatoFecha);
-  console.log(fecha_verbose);
 
   return {
     'slug': clip['slug'],
@@ -437,6 +436,9 @@ ApiStream.prototype.createObjectFromPic_ = function(image) {
 
   var fecha_texto = '' + fecha.getDate() + '/' + (fecha.getMonth() + 1) +  '/' + fecha.getFullYear();
 
+  var formatoFecha = 'dd de MMMM' + ((fecha.getYear() != currentDate.getYear()) ? ', yyyy' : '');
+  var fecha_verbose = $.format.date(fecha, formatoFecha);
+
   return {
     'slug': image['slug'],
     'titulo': image['titulo'],
@@ -445,6 +447,7 @@ ApiStream.prototype.createObjectFromPic_ = function(image) {
 
     'fecha': fecha,
     'fecha_texto': fecha_texto,
+    'fecha_verbose': fecha_verbose,
 
     'tipo': TipoReporte.Imagen,
 
